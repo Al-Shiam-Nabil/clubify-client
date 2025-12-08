@@ -24,7 +24,7 @@ const Navbar = () => {
                 className="h-7 w-7"
                 fill="none"
                 viewBox="0 0 24 24"
-                stroke="currentColor"
+                stroke="#22C55E"
               >
                 {" "}
                 <path
@@ -37,7 +37,7 @@ const Navbar = () => {
             </div>
             <ul
               tabIndex="-1"
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+              className="menu menu-sm dropdown-content bg-primary/50 backdrop-blur-sm rounded-box z-1 mt-3 w-52 p-2 shadow"
             >
               {links}
             </ul>
