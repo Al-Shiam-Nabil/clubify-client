@@ -12,3 +12,17 @@
   /* body text */
   --font-secondary:"Inter", sans-serif;
  }
+
+ @plugin "daisyui";
+@plugin "daisyui/theme" {
+  name: "light";
+  default: true;
+  --color-primary: #0F172A;
+  --color-secondary: #22C55E;
+  /* white color */
+   --color-secondary-content:#F8FAFC
+}
+
+ body{
+  font-family: "Inter", sans-serif;
+ }
