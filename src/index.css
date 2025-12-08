@@ -21,9 +21,19 @@
   --color-primary: #2B2D42;
   --color-secondary: #22C55E;
   /* white color */
-   --color-secondary-content:#F8FAFC
+   --color-secondary-content:#F8FAFC;
+   /* text color */
+   --color-accent:#0B0F19;
+   /* light text color */
+   --color-base-300:#374151;
+   /* background color */
+   --color-base-100:#FAFAFA;
 }
 
  body{
   font-family: "Inter", sans-serif;
+  color: #0B0F19;
+  /* background-color: #FAFAFA; */
+  background-color: #F4F4F5;
+
  }

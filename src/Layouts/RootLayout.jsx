@@ -6,7 +6,7 @@ import Footer from "../Components/Shared/Footer/Footer";
 const RootLayout = () => {
   return (
     <div className="flex flex-col min-h-screen">
-      <header className="sticky top-0">
+      <header className="sticky z-50 top-0">
 
         <Navbar></Navbar>
       </header>
