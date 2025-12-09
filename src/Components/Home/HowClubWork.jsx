@@ -15,7 +15,7 @@ const HowClubWork = () => {
           <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-blue-100 ">
             <FaSearch className="text-blue-500 " />
           </div>
-          <h3 className="text-lg font-bold text-[#1F2937] dark:text-white">
+          <h3 className="text-lg font-bold text-[#1F2937] ">
             Explore & Discover
           </h3>
           <p className="text-sm text-base-300 ">
@@ -29,7 +29,7 @@ const HowClubWork = () => {
           <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-green-100 ">
             <FaCalendarAlt className="text-green-500 " />
           </div>
-          <h3 className="text-lg font-bold text-[#1F2937] dark:text-white">
+          <h3 className="text-lg font-bold text-[#1F2937] ">
             Find an Event
           </h3>
           <p className="text-sm text-base-300 ">
@@ -39,18 +39,18 @@ const HowClubWork = () => {
         </div>
 
         {/* Card 3 */}
-        <div className="flex flex-col gap-4 rounded-xl  bg-neutral dark:bg-background-dark p-6 shadow-sm transition-all hover:shadow-lg">
+        <div className="flex flex-col gap-4 rounded-xl  bg-neutral  p-6 shadow-sm transition-all hover:shadow-lg">
           <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-purple-100 ">
             <FaUserPlus className="text-purple-500 " />
           </div>
           <h3 className="text-lg font-bold ">Join the Fun</h3>
-          <p className="text-sm text-base-300 dark:text-gray-400 leading-normal">
+          <p className="text-sm text-base-300  leading-normal">
             Join clubs or events with just a few clicks. Connect, participate,
             and grow together.
           </p>
         </div>
 
-        <div className="flex flex-col gap-4 rounded-xl   bg-neutral dark:bg-background-dark p-6 shadow-sm transition-all hover:shadow-lg">
+        <div className="flex flex-col gap-4 rounded-xl   bg-neutral  p-6 shadow-sm transition-all hover:shadow-lg">
           <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-orange-100">
             <BsFillSendFill className="text-xl text-orange-500 "></BsFillSendFill>
           </div>
