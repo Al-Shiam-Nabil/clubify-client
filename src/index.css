@@ -20,8 +20,10 @@
   /* --color-primary: #0F172A; */
   --color-primary: #2B2D42;
   --color-secondary: #22C55E;
-  /* white color */
+  /* dark white color */
    --color-secondary-content:#F8FAFC;
+   /* pure white  */
+   --color-neutral:#FFFFFF;
    /* text color */
    --color-accent:#0B0F19;
    /* light text color */

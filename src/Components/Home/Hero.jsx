@@ -5,7 +5,7 @@ import Heading1 from '../Shared/Headings/Heading1';
 const Hero = () => {
     return (
         <Container className="my-10">
-<section className=' flex items-center gap-10 relative flex-col lg:flex-row'>
+<section className=' flex items-center text-center lg:text-left gap-10 relative flex-col lg:flex-row'>
     {/* left side  */}
 <div className='w-full sm:h-[400px] lg:h-auto lg:w-1/2'>
     <img src="https://i.ibb.co.com/gM7vkgxP/clubify-Hero.jpg" alt="club image" className='rounded-2xl h-full w-full object-cover' />
@@ -17,7 +17,7 @@ const Hero = () => {
 <Heading1>Join clubs meet people and grow together.</Heading1>
 <p className='text-base-300'>Clubify is a smart platform that helps you find, join, and manage clubs with ease. From sports and travel to tech and book clubs, Clubify empowers members. </p>
 
-<div className='flex items-center gap-y-3 gap-x-5 flex-wrap'>
+<div className='flex items-center justify-center lg:justify-start gap-y-3 gap-x-5 flex-wrap'>
     <button className='btn btn-primary shadow-none border-none hover:bg-secondary 
      w-[120px] font-primary'>Join Club</button>
     <button className='btn btn-secondary shadow-none border-none
