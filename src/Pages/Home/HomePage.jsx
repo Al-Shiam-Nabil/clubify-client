@@ -3,6 +3,7 @@ import Hero from '../../Components/Home/Hero';
 import Categories from '../../Components/Home/Categories';
 import FeaturedClub from '../../Components/Home/FeaturedClub';
 import UpcomingEvents from '../../Components/Home/UpcomingEvents';
+import HowClubWork from '../../Components/Home/HowClubWork';
 
 const HomePage = () => {
     return (
@@ -11,6 +12,7 @@ const HomePage = () => {
            <Categories></Categories>
            <FeaturedClub></FeaturedClub>
            <UpcomingEvents></UpcomingEvents>
+           <HowClubWork></HowClubWork>
         </div>
     );
 };
