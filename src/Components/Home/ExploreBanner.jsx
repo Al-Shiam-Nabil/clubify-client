@@ -3,7 +3,7 @@ import Container from "../Shared/Container";
 
 const ExploreBanner = () => {
   return (
-    <div className="bg-linear-45 from-primary to-primary/70  w-full my-20  py-10">
+    <div className="bg-linear-45 from-primary to-primary/70  w-full mt-20  py-12">
       <Container className="flex items-center flex-col md:flex-row-reverse gap-10 relative">
         <div className="w-full md:w-1/2 h-[250px] sm:h-[400px] ">
           <img
@@ -17,7 +17,7 @@ const ExploreBanner = () => {
           <h2 className="text-4xl font-bold text-secondary-content">
             Explore your own better exparience.
           </h2>
-          <p className="text-secondary-content">
+          <p className="text-neutral">
             Clubify is a social platform that connects people through shared
             interests and communities. It helps users discover clubs, explore
             events, and engage with like-minded individuals. Whether you want to

@@ -5,6 +5,7 @@ import FeaturedClub from '../../Components/Home/FeaturedClub';
 import UpcomingEvents from '../../Components/Home/UpcomingEvents';
 import HowClubWork from '../../Components/Home/HowClubWork';
 import ExploreBanner from '../../Components/Home/ExploreBanner';
+import WhyJoinClub from '../../Components/Home/WhyJoinClub';
 
 const HomePage = () => {
     return (
@@ -15,6 +16,7 @@ const HomePage = () => {
            <UpcomingEvents></UpcomingEvents>
            <HowClubWork></HowClubWork>
            <ExploreBanner></ExploreBanner>
+           <WhyJoinClub></WhyJoinClub>
         </div>
     );
 };
