@@ -6,10 +6,12 @@ import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { useForm } from "react-hook-form";
 
 import GoogleLogin from "./GoogleLogin";
+import useAuthHook from "../../Hooks/useAuthHook";
+import { sweetAlert } from "../../Utils/Alert/SweetAlert";
 
 const RegisterPage = () => {
   const [showPassword, setShowPassword] = useState(false);
-
+  const { registerUser, setLoading, updateUserInfo } = useAuthHook();
 
   const location = useLocation();
 
@@ -20,11 +22,61 @@ const RegisterPage = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
 
   const handleRegister = (data) => {
-    console.log(data);
+    const name = data?.name;
+    const email = data?.email;
+    const password = data?.password;
+    // const photoURL = data?.photoURL || '';
+    const photoURL = "";
+    console.log(photoURL);
+    registerUser(email, password)
+      .then((result) => {
+        const user = result?.user;
+        console.log(user);
+        updateUserInfo({ displayName: name, photoURL })
+          .then(() => {
+            console.log(user);
+            sweetAlert("success", "Registration successfully completed.");
+reset()
+            setLoading(false);
+          })
+          .catch((error) => {
+            console.error(error);
+            let message = "Something went wrong. Please try again.";
+
+            if (error.code === "auth/requires-recent-login") {
+              message = "You need to re-login to update your profile.";
+            } else if (error.code === "auth/network-request-failed") {
+              message = "Network error. Check your connection and try again.";
+            } else if (error.code === "auth/invalid-profile-update") {
+              message = "Invalid profile information provided.";
+            }
+
+            sweetAlert("error", message);
+            setLoading(false);
+          });
+
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error(error);
+        let message = "Something went wrong. Please try again.";
+
+        if (error.code === "auth/email-already-in-use") {
+          message =
+            "This email is already in use. Please login or use another email.";
+        } else if (error.code === "auth/network-request-failed") {
+          message =
+            "Network error. Please check your connection and try again.";
+        }
+
+        sweetAlert("error", message);
+        setLoading(false);
+      });
   };
 
   return (
@@ -40,16 +92,16 @@ const RegisterPage = () => {
                 <label className="label text-base text-accent">Name</label>
                 <input
                   type="text"
-                  {...register("displayName", {
+                  {...register("name", {
                     required: "Name is required.",
                     setValueAs: (value) => value.trim(),
                   })}
                   className="input w-full bg-secondary-content rounded-full px-5 focus:outline-2  focus:outline-secondary "
                   placeholder="Name"
                 />
-                {errors.displayName && (
+                {errors.name && (
                   <p className="text-red-500 text-sm mt-1">
-                    {errors.displayName.message}
+                    {errors.name.message}
                   </p>
                 )}
 
@@ -80,7 +132,9 @@ const RegisterPage = () => {
                   placeholder="Email"
                 />
                 {errors.email && (
-                  <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.email.message}
+                  </p>
                 )}
 
                 {/* password */}
@@ -93,12 +147,20 @@ const RegisterPage = () => {
                     type={`${showPassword ? "text" : "password"}`}
                     {...register("password", {
                       required: "Password is required",
-                      pattern: { value: /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/,message:"Password must contain at least 1 uppercase, 1 lowercase letter and be at least 6 characters long" },
+                      pattern: {
+                        value: /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/,
+                        message:
+                          "Password must contain at least 1 uppercase, 1 lowercase letter and be at least 6 characters long",
+                      },
                     })}
                     className="input w-full bg-secondary-content rounded-full px-5 pr-12 focus:outline-2  focus:outline-secondary "
                     placeholder="Password"
                   />
-                  {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>}
+                  {errors.password && (
+                    <p className="text-red-500 text-sm mt-1">
+                      {errors.password.message}
+                    </p>
+                  )}
 
                   <div
                     onClick={() => setShowPassword(!showPassword)}
@@ -120,7 +182,7 @@ const RegisterPage = () => {
 
             <p className="text-center ">or</p>
 
-         <GoogleLogin></GoogleLogin>
+            <GoogleLogin></GoogleLogin>
 
             <p className="text-center mt-1 text-base-300">
               Already have an account? Please{" "}
