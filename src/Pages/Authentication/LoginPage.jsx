@@ -5,14 +5,18 @@ import { FaRegEyeSlash } from "react-icons/fa";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { useForm } from "react-hook-form";
 import GoogleLogin from "./GoogleLogin";
+import useAuthHook from "../../Hooks/useAuthHook";
+import { sweetAlert } from "../../Utils/Alert/SweetAlert";
 
 const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const {loginUser,setLoading}=useAuthHook()
   const location = useLocation();
 
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
 
@@ -21,7 +25,17 @@ const LoginPage = () => {
   }, [location?.pathname]);
 
   const handleLogin = (data) => {
-    console.log(data);
+    const email=data?.email
+    const password=data?.password
+
+    loginUser(email,password).then(()=>{
+      sweetAlert('success','Logged in successfully.')
+      reset()
+      setLoading(false)
+    }).catch(error=>{
+      console.error(error.code)
+      sweetAlert('error','Invalid email or password.')
+    })
   };
 
   return (

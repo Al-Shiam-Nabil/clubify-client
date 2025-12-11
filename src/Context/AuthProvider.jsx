@@ -3,6 +3,7 @@ import { AuthContext } from "./AuthContext";
 import {
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
+  signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
   updateProfile,
@@ -28,6 +29,11 @@ const AuthProvider = ({ children }) => {
     return updateProfile(auth.currentUser, updatedInfo);
   };
 
+  const loginUser=(email,password)=>{
+    setLoading(true)
+    return signInWithEmailAndPassword(auth,email,password)
+  }
+
   const logOutUser = () => {
     return signOut(auth);
   };
@@ -39,6 +45,7 @@ const AuthProvider = ({ children }) => {
     logOutUser,
     registerUser,
     updateUserInfo,
+    loginUser
   };
   return <AuthContext value={authInfo}>{children}</AuthContext>;
 };

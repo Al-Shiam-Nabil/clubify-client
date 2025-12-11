@@ -34,14 +34,11 @@ const RegisterPage = () => {
     const photoURL = "";
     console.log(photoURL);
     registerUser(email, password)
-      .then((result) => {
-        const user = result?.user;
-        console.log(user);
+      .then(() => {
         updateUserInfo({ displayName: name, photoURL })
           .then(() => {
-            console.log(user);
             sweetAlert("success", "Registration successfully completed.");
-reset()
+            reset();
             setLoading(false);
           })
           .catch((error) => {
