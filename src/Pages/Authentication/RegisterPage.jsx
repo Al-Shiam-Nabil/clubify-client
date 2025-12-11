@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Container from "../../Components/Shared/Container";
-import { Link, useLocation } from "react-router";
+import { Link, Navigate, useLocation } from "react-router";
 import { FaRegEyeSlash } from "react-icons/fa";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { useForm } from "react-hook-form";
@@ -11,7 +11,7 @@ import { sweetAlert } from "../../Utils/Alert/SweetAlert";
 
 const RegisterPage = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const { registerUser, setLoading, updateUserInfo } = useAuthHook();
+  const { registerUser, setLoading, updateUserInfo,user } = useAuthHook();
 
   const location = useLocation();
 
@@ -19,12 +19,19 @@ const RegisterPage = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [location?.pathname]);
 
+   
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
   } = useForm();
+
+  if(user){
+      return <Navigate to="/"></Navigate>
+    }
+  
+
 
   const handleRegister = (data) => {
     const name = data?.name;

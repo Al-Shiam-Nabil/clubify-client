@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useLocation } from "react-router";
+import { Link, Navigate, useLocation } from "react-router";
 import Container from "../../Components/Shared/Container";
 import { FaRegEyeSlash } from "react-icons/fa";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
@@ -10,7 +10,7 @@ import { sweetAlert } from "../../Utils/Alert/SweetAlert";
 
 const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const {loginUser,setLoading}=useAuthHook()
+  const {loginUser,setLoading,user}=useAuthHook()
   const location = useLocation();
 
   const {
@@ -23,6 +23,12 @@ const LoginPage = () => {
   useState(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [location?.pathname]);
+
+  if(user){
+    return <Navigate to="/"></Navigate>
+  }
+
+  
 
   const handleLogin = (data) => {
     const email=data?.email
