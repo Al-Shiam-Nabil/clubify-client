@@ -1,20 +1,25 @@
-import React from "react";
 import Container from "../Container";
 import { NavLink } from "react-router";
 import MyLink from "./MyLink";
+import useAuthHook from "../../../Hooks/useAuthHook";
+import defaultUserImage from "../../../assets/user.png";
+import { CgProfile } from "react-icons/cg";
+import { TbLogout } from "react-icons/tb";
 
 const Navbar = () => {
+  const { user, loading } = useAuthHook();
+
   const links = (
     <>
-      <MyLink to='/'>Home</MyLink>
-      <MyLink to='/clubs'>All Clubs</MyLink>
-      <MyLink to='/events'>Club Events</MyLink>
+      <MyLink to="/">Home</MyLink>
+      <MyLink to="/clubs">All Clubs</MyLink>
+      <MyLink to="/events">Club Events</MyLink>
     </>
   );
 
   return (
     <div className=" bg-primary shadow-sm">
-      <Container className="navbar">
+      <Container className="navbar relative">
         {" "}
         <div className="navbar-start">
           <div className="dropdown">
@@ -37,7 +42,7 @@ const Navbar = () => {
             </div>
             <ul
               tabIndex="-1"
-              className="menu menu-sm dropdown-content bg-primary/50 backdrop-blur-sm rounded-box z-1 mt-3 w-52 p-2 shadow"
+              className="menu menu-md dropdown-content bg-primary/70 backdrop-blur-sm rounded-box z-1 mt-3 w-52 p-4 shadow"
             >
               {links}
             </ul>
@@ -50,7 +55,47 @@ const Navbar = () => {
           <ul className="flex justify-center items-center gap-10">{links}</ul>
         </div>
         <div className="navbar-end">
-          <a className="btn">Button</a>
+          {loading ? (
+            <div className="skeleton h-32 w-32"></div>
+          ) : user ? (
+            <div className="dropdown dropdown-bottom dropdown-end">
+              <div tabIndex={0} role="button" className="">
+                <img
+                  src={user?.photoURL || defaultUserImage}
+                  alt=""
+                  className="h-12 w-12 border-3 border-secondary rounded-full object-cover cursor-pointer"
+                />
+              </div>
+              <ul
+                tabIndex="-1"
+                className="dropdown-content bg-primary/70 backdrop-blur-sm text-neutral rounded-box z-1 w-52 p-4 shadow-sm"
+              >
+                <li>
+                  <p className="truncate capitalize text-sm mb-1">
+                    {user?.displayName}
+                  </p>
+                  <p className="truncate text-sm border-b border-base-100 pb-2">
+                    {user?.email}
+                  </p>
+                </li>
+                <li className="my-2 ">
+                  <div className="inline-flex items-center gap-2">
+                    <CgProfile className="text-base" />
+                  <MyLink to="/profile"> Profile</MyLink>
+                  </div>
+                </li>
+               
+                <li >
+                <div className="inline-flex items-center gap-2">
+                    <TbLogout className="text-base" />{" "}
+                  <MyLink to="/logout"> Log Out</MyLink>
+                </div>
+                </li>
+              </ul>
+            </div>
+          ) : (
+            ""
+          )}
         </div>
       </Container>
     </div>

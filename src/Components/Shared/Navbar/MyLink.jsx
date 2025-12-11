@@ -1,15 +1,15 @@
 import React from "react";
 import { NavLink } from "react-router";
 
-const MyLink = ({ children, to }) => {
+const MyLink = ({ children, to,className }) => {
   return (
     <li>
       <NavLink
         to={to}
-        className={({ isActive }) =>
-          `${
+        className={`${className} ${({ isActive }) =>
+        
             isActive ? "text-secondary" : "text-secondary-content"
-          } text-base font-medium  group relative w-max`
+          } text-base font-medium  group relative w-max}`
         }
       >
         {children}
