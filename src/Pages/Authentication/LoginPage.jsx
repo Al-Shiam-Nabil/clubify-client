@@ -35,6 +35,7 @@ const LoginPage = () => {
     }).catch(error=>{
       console.error(error.code)
       sweetAlert('error','Invalid email or password.')
+      setLoading(false)
     })
   };
 

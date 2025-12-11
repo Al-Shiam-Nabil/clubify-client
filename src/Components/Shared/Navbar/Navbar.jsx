@@ -67,7 +67,7 @@ const Navbar = () => {
         </div>
         <div className="navbar-end">
           {loading ? (
-            <div className="skeleton h-32 w-32"></div>
+            <div className="skeleton  h-12 w-42 rounded-lg"></div>
           ) : user ? (
             <div className="dropdown dropdown-bottom dropdown-end">
               <div tabIndex={0} role="button">
@@ -92,7 +92,11 @@ const Navbar = () => {
                 <li className="my-2 ">
                   <div className="inline-flex items-center gap-2">
                     <CgProfile className="text-base" />
-                    <MyLink to="/profile"> Profile</MyLink>
+
+                    <NavLink className="group relative w-max cursor-pointer">
+                      Profile
+                      <span className="absolute -bottom-1 left-0 w-0 transition-all h-0.5 ease-in-out duration-300 rounded-full bg-secondary group-hover:w-full"></span>
+                    </NavLink>
                   </div>
                 </li>
 
@@ -112,11 +116,11 @@ const Navbar = () => {
               </ul>
             </div>
           ) : (
-            <div>
-              <Link to="/login" className="btn btn-secondary ">
+            <div className="space-x-5">
+              <Link to="/login" className="btn btn-outline text-base-100 hover:bg-secondary border-secondary shadow-none duration-400">
                 Log in
               </Link>
-              <Link to="/register" className="btn btn-secondary ">
+              <Link to="/register" className="btn btn-secondary shadow-none hover:bg-transparent duration-500">
                 Register
               </Link>
             </div>
