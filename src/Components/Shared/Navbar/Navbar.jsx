@@ -1,13 +1,24 @@
 import Container from "../Container";
-import { NavLink } from "react-router";
+import { Link, NavLink } from "react-router";
 import MyLink from "./MyLink";
 import useAuthHook from "../../../Hooks/useAuthHook";
 import defaultUserImage from "../../../assets/user.png";
 import { CgProfile } from "react-icons/cg";
 import { TbLogout } from "react-icons/tb";
+import { sweetAlert } from "../../../Utils/Alert/SweetAlert";
 
 const Navbar = () => {
-  const { user, loading } = useAuthHook();
+  const { user, loading, logOutUser } = useAuthHook();
+
+  const handleLogOut = () => {
+    logOutUser()
+      .then(() => {
+        sweetAlert("success", "Logged out successfully.");
+      })
+      .catch((error) => {
+        console.error(error.code);
+      });
+  };
 
   const links = (
     <>
@@ -59,7 +70,7 @@ const Navbar = () => {
             <div className="skeleton h-32 w-32"></div>
           ) : user ? (
             <div className="dropdown dropdown-bottom dropdown-end">
-              <div tabIndex={0} role="button" className="">
+              <div tabIndex={0} role="button">
                 <img
                   src={user?.photoURL || defaultUserImage}
                   alt=""
@@ -81,20 +92,34 @@ const Navbar = () => {
                 <li className="my-2 ">
                   <div className="inline-flex items-center gap-2">
                     <CgProfile className="text-base" />
-                  <MyLink to="/profile"> Profile</MyLink>
+                    <MyLink to="/profile"> Profile</MyLink>
                   </div>
                 </li>
-               
-                <li >
-                <div className="inline-flex items-center gap-2">
-                    <TbLogout className="text-base" />{" "}
-                  <MyLink to="/logout"> Log Out</MyLink>
-                </div>
+
+                <li>
+                  <div
+                    onClick={handleLogOut}
+                    className="inline-flex items-center gap-2"
+                  >
+                    <TbLogout className="text-base" />
+
+                    <div className="group relative w-max cursor-pointer">
+                      Log Out
+                      <span className="absolute -bottom-1 left-0 w-0 transition-all h-0.5 ease-in-out duration-300 rounded-full bg-secondary group-hover:w-full"></span>
+                    </div>
+                  </div>
                 </li>
               </ul>
             </div>
           ) : (
-            ""
+            <div>
+              <Link to="/login" className="btn btn-secondary ">
+                Log in
+              </Link>
+              <Link to="/register" className="btn btn-secondary ">
+                Register
+              </Link>
+            </div>
           )}
         </div>
       </Container>
