@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Container from "../../Components/Shared/Container";
-import { Link, Navigate, useLocation } from "react-router";
+import { Link, Navigate, useLocation, useNavigate } from "react-router";
 import { FaRegEyeSlash } from "react-icons/fa";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { useForm } from "react-hook-form";
@@ -8,18 +8,23 @@ import { useForm } from "react-hook-form";
 import GoogleLogin from "./GoogleLogin";
 import useAuthHook from "../../Hooks/useAuthHook";
 import { sweetAlert } from "../../Utils/Alert/SweetAlert";
+import useAxiosSecure from "../../Hooks/useAxiossecure";
+import { useMutation } from "@tanstack/react-query";
 
 const RegisterPage = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const { registerUser, setLoading, updateUserInfo,user } = useAuthHook();
+
+  const { registerUser, setLoading, updateUserInfo } =
+    useAuthHook();
+  const axiosSecure = useAxiosSecure();
+  const navigate=useNavigate()
 
   const location = useLocation();
 
-  useState(() => {
+  useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [location?.pathname]);
 
-   
   const {
     register,
     handleSubmit,
@@ -27,10 +32,20 @@ const RegisterPage = () => {
     formState: { errors },
   } = useForm();
 
-  if(user){
-      return <Navigate to="/"></Navigate>
-    }
-  
+  const mutation = useMutation({
+    mutationFn: (userInfo) => {
+      return axiosSecure.post("/users", userInfo);
+    },
+    onSuccess: (data) => {
+      if (data?.data?.insertedId) {
+        sweetAlert("success", "Registration successfully completed.");
+        reset();
+navigate('/')
+        setLoading(false);
+      }
+    },
+  });
+
 
 
   const handleRegister = (data) => {
@@ -39,14 +54,14 @@ const RegisterPage = () => {
     const password = data?.password;
     // const photoURL = data?.photoURL || '';
     const photoURL = "";
+
+    const userInfo = { name, email, photoURL };
     console.log(photoURL);
     registerUser(email, password)
       .then(() => {
         updateUserInfo({ displayName: name, photoURL })
           .then(() => {
-            sweetAlert("success", "Registration successfully completed.");
-            reset();
-            setLoading(false);
+            mutation.mutate(userInfo);
           })
           .catch((error) => {
             console.error(error);
@@ -161,7 +176,7 @@ const RegisterPage = () => {
                     placeholder="Password"
                   />
                   {errors.password && (
-                    <p className="text-red-500 text-sm mt-1">
+                    <p className="text-red-500 text-sm mt-1.5">
                       {errors.password.message}
                     </p>
                   )}

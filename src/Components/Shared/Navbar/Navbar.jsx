@@ -117,10 +117,16 @@ const Navbar = () => {
             </div>
           ) : (
             <div className="space-x-5">
-              <Link to="/login" className="btn btn-outline text-base-100 hover:bg-secondary border-secondary shadow-none duration-400">
+              <Link
+                to="/login"
+                className="btn btn-outline text-base-100 hover:bg-secondary border-secondary shadow-none duration-400"
+              >
                 Log in
               </Link>
-              <Link to="/register" className="btn btn-secondary shadow-none hover:bg-transparent duration-500">
+              <Link
+                to="/register"
+                className="btn btn-secondary shadow-none hover:bg-transparent duration-500"
+              >
                 Register
               </Link>
             </div>

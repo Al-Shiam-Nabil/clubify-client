@@ -3,6 +3,7 @@ import RootLayout from "../Layouts/RootLayout";
 import HomePage from "../Pages/Home/HomePage";
 import RegisterPage from "../Pages/Authentication/RegisterPage";
 import LoginPage from "../Pages/Authentication/LoginPage";
+import PublicRoute from "./PublicRoute";
 
 export const router = createBrowserRouter([
   {
@@ -14,10 +15,10 @@ export const router = createBrowserRouter([
         Component: HomePage,
       },{
         path:'register',
-        Component:RegisterPage
+      element:<PublicRoute><RegisterPage></RegisterPage></PublicRoute>
       },{
         path:'login',
-        Component:LoginPage
+       element:<PublicRoute><LoginPage></LoginPage></PublicRoute>
       }
     ],
   },

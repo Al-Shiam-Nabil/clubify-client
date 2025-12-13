@@ -1,0 +1,12 @@
+import React from 'react';
+import { MoonLoader } from 'react-spinners';
+
+const LOadingComponent = () => {
+    return (
+      <div className="grid justify-center mt-20 h-screen">
+        <MoonLoader size={30} speedMultiplier={.75} color="#22C55E" />
+      </div>
+    );
+};
+
+export default LOadingComponent;
