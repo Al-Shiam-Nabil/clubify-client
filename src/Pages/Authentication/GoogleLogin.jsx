@@ -1,3 +1,4 @@
+import axios from "axios";
 import useAuthHook from "../../Hooks/useAuthHook";
 import { sweetAlert } from "../../Utils/Alert/SweetAlert";
 
@@ -7,9 +8,18 @@ const GoogleLogin = () => {
   const handleGoogleLogin = () => {
     googleLogin()
       .then((result) => {
-        console.log(result.user);
-        sweetAlert("success", "Logged in successfully.");
-        setLoading(false);
+        const userInfo = {
+          name: result?.user?.displayName,
+          email: result?.user?.email,
+          photoURL: result?.user?.photoURL,
+        };
+        axios.post("http://localhost:4000/users", userInfo).then((res) => {
+          console.log(res.data)
+          if (res?.data?.insertedId) {
+            sweetAlert("success", "Logged in successfully.");
+            setLoading(false);
+          }
+        });
       })
       .catch((err) => {
         console.error(err.code);

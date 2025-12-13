@@ -8,16 +8,16 @@ import { useForm } from "react-hook-form";
 import GoogleLogin from "./GoogleLogin";
 import useAuthHook from "../../Hooks/useAuthHook";
 import { sweetAlert } from "../../Utils/Alert/SweetAlert";
-import useAxiosSecure from "../../Hooks/useAxiossecure";
 import { useMutation } from "@tanstack/react-query";
 
 import { uploadImage } from "../../Utils/uploadImage";
+import axios from "axios";
 
 const RegisterPage = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const { registerUser, setLoading, updateUserInfo } = useAuthHook();
-  const axiosSecure = useAxiosSecure();
+
   const navigate = useNavigate();
 
   const location = useLocation();
@@ -35,7 +35,7 @@ const RegisterPage = () => {
 
   const mutation = useMutation({
     mutationFn: (userInfo) => {
-      return axiosSecure.post("/users", userInfo);
+      return axios.post("http://localhost:4000//users", userInfo);
     },
     onSuccess: (data) => {
       if (data?.data?.insertedId) {
