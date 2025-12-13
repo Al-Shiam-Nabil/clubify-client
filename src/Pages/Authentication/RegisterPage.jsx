@@ -11,13 +11,14 @@ import { sweetAlert } from "../../Utils/Alert/SweetAlert";
 import useAxiosSecure from "../../Hooks/useAxiossecure";
 import { useMutation } from "@tanstack/react-query";
 
+import { uploadImage } from "../../Utils/uploadImage";
+
 const RegisterPage = () => {
   const [showPassword, setShowPassword] = useState(false);
 
-  const { registerUser, setLoading, updateUserInfo } =
-    useAuthHook();
+  const { registerUser, setLoading, updateUserInfo } = useAuthHook();
   const axiosSecure = useAxiosSecure();
-  const navigate=useNavigate()
+  const navigate = useNavigate();
 
   const location = useLocation();
 
@@ -40,26 +41,25 @@ const RegisterPage = () => {
       if (data?.data?.insertedId) {
         sweetAlert("success", "Registration successfully completed.");
         reset();
-navigate('/')
+        navigate("/");
         setLoading(false);
       }
     },
   });
 
-
-
-  const handleRegister = (data) => {
+  const handleRegister = async (data) => {
     const name = data?.name;
     const email = data?.email;
     const password = data?.password;
-    // const photoURL = data?.photoURL || '';
-    const photoURL = "";
+    const photoURL = data?.photoURL;
 
-    const userInfo = { name, email, photoURL };
-    console.log(photoURL);
+    const image = await uploadImage(photoURL);
+
+    const userInfo = { name, email, photoURL: image };
+
     registerUser(email, password)
       .then(() => {
-        updateUserInfo({ displayName: name, photoURL })
+        updateUserInfo({ displayName: name, photoURL: image })
           .then(() => {
             mutation.mutate(userInfo);
           })
