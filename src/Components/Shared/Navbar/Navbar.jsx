@@ -25,7 +25,13 @@ const Navbar = () => {
       <MyLink to="/">Home</MyLink>
       <MyLink to="/clubs">All Clubs</MyLink>
       <MyLink to="/events">Club Events</MyLink>
+
+      {
+        user && <MyLink to="dashboard">Dashboard</MyLink>
+      }
     </>
+
+    
   );
 
   return (
