@@ -5,6 +5,7 @@ import RegisterPage from "../Pages/Authentication/RegisterPage";
 import LoginPage from "../Pages/Authentication/LoginPage";
 import PublicRoute from "./PublicRoute";
 import DashboardLayout from "../Layouts/DashboardLayout";
+import PrivateRoute from "./PrivateRoute";
 
 export const router = createBrowserRouter([
   {
@@ -25,6 +26,6 @@ export const router = createBrowserRouter([
   },
   {
     path:'/dashboard',
-    element:<DashboardLayout></DashboardLayout>
+    element:<PrivateRoute><DashboardLayout></DashboardLayout></PrivateRoute>
   }
 ]);
