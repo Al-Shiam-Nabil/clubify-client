@@ -6,6 +6,7 @@ import LoginPage from "../Pages/Authentication/LoginPage";
 import PublicRoute from "./PublicRoute";
 import DashboardLayout from "../Layouts/DashboardLayout";
 import PrivateRoute from "./PrivateRoute";
+import CreateClub from "../Pages/CreateClub/CreateClub";
 
 export const router = createBrowserRouter([
   {
@@ -21,7 +22,9 @@ export const router = createBrowserRouter([
       },{
         path:'login',
        element:<PublicRoute><LoginPage></LoginPage></PublicRoute>
-      }
+      },{
+        path:'create-club',
+      element:<PrivateRoute><CreateClub></CreateClub></PrivateRoute>      }
     ],
   },
   {

@@ -1,6 +1,7 @@
 import React from 'react';
 import Container from '../Shared/Container';
 import Heading1 from '../Shared/Headings/Heading1';
+import { Link } from 'react-router';
 
 const Hero = () => {
     return (
@@ -20,8 +21,8 @@ const Hero = () => {
 <div className='flex items-center justify-center lg:justify-start gap-y-3 gap-x-5 flex-wrap'>
     <button className='btn btn-primary shadow-none border-none hover:bg-secondary 
      w-[120px] font-primary'>Join Club</button>
-    <button className='btn btn-secondary shadow-none border-none
- hover:bg-primary w-[120px] font-primary'>Create Club</button>
+    <Link to='/create-club' className='btn btn-secondary shadow-none border-none
+ hover:bg-primary w-[120px] font-primary'>Create Club</Link>
 </div>
 </div>
 </section>

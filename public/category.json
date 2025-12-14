@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "name": "Photography",
+    "image": "https://source.unsplash.com/600x400/?photography,camera"
+  },
+  {
+    "id": 2,
+    "name": "Sports",
+    "image": "https://source.unsplash.com/600x400/?sports,fitness"
+  },
+  {
+    "id": 3,
+    "name": "Technology",
+    "image": "https://source.unsplash.com/600x400/?technology,computer"
+  },
+  {
+    "id": 4,
+    "name": "Music",
+    "image": "https://source.unsplash.com/600x400/?music,concert"
+  },
+  {
+    "id": 5,
+    "name": "Art & Design",
+    "image": "https://source.unsplash.com/600x400/?art,design"
+  },
+  {
+    "id": 6,
+    "name": "Travel",
+    "image": "https://source.unsplash.com/600x400/?travel,adventure"
+  },
+  {
+    "id": 7,
+    "name": "Gaming",
+    "image": "https://source.unsplash.com/600x400/?gaming,esports"
+  },
+  {
+    "id": 8,
+    "name": "Education",
+    "image": "https://source.unsplash.com/600x400/?education,learning"
+  },
+  {
+    "id": 9,
+    "name": "Health & Fitness",
+    "image": "https://source.unsplash.com/600x400/?fitness,health"
+  },
+  {
+    "id": 10,
+    "name": "Business & Startup",
+    "image": "https://source.unsplash.com/600x400/?business,startup"
+  }
+]
