@@ -3,11 +3,15 @@ import Container from "../../Components/Shared/Container";
 import useAuthHook from "../../Hooks/useAuthHook";
 import axios from "axios";
 import LoadingComponent from "../../Components/Shared/Loading/LoadingComponent";
+import useRoleHook from "../../Hooks/useRoleHook";
 
 const CreateClub = () => {
   const { user, loading } = useAuthHook();
   const [categories, setCategories] = useState(null);
   const [categoryLoading, setCategoryLoading] = useState(true);
+
+  const role=useRoleHook()
+  
 
   useEffect(() => {
     axios.get("/category.json").then((res) => {
@@ -22,6 +26,8 @@ const CreateClub = () => {
   }
 
   return (
+  <>
+  <title>Clubify | Club Registration</title>
     <Container>
       <form className="bg-neutral p-10 my-16 rounded-xl">
         <h2 className="text-center text-2xl font-bold text-secondary mb-8">
@@ -137,6 +143,7 @@ const CreateClub = () => {
         </button>
       </form>
     </Container>
+  </>
   );
 };
 
