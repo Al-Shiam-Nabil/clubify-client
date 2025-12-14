@@ -23,11 +23,11 @@ const CreateClub = () => {
 
   return (
     <Container>
-      <form className="bg-neutral p-10 my-10 rounded-xl">
+      <form className="bg-neutral p-10 my-16 rounded-xl">
         <h2 className="text-center text-2xl font-bold text-secondary mb-8">
           Club Ragistration Form
         </h2>
-        <div className="flex gap-20">
+        <div className="flex flex-col md:flex-row gap-2 md:gap-10 lg:gap-20">
           <fieldset className="fieldset w-full space-y-2">
             {/*club name */}
             <div>
