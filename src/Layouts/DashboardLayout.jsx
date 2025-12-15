@@ -1,6 +1,6 @@
 import React from 'react';
 import Container from '../Components/Shared/Container';
-import { NavLink } from 'react-router';
+import { NavLink, Outlet } from 'react-router';
 import DashboardLink from '../Components/Dashboard/DashboardLink';
 
 const DashboardLayout = () => {
@@ -18,7 +18,7 @@ const DashboardLayout = () => {
       <div className="px-4 text-2xl font-primary text-secondary font-bold">Clubify</div>
     </nav>
     {/* Page content here */}
-    <div className="p-4">Page Content</div>
+    <div className="p-4"><Outlet></Outlet></div>
   </div>
 
   <div className="drawer-side is-drawer-close:overflow-visible">
@@ -26,8 +26,11 @@ const DashboardLayout = () => {
     <div className="flex min-h-full flex-col items-start bg-base-200 is-drawer-close:w-14 is-drawer-open:w-64">
       {/* Sidebar content here */}
       <ul className="menu w-full grow">
-        {/* List item */}
+     {/* homepage link */}
       <DashboardLink to="/">Homepage</DashboardLink>
+
+      {/* admin club request link */}
+      <DashboardLink to='/dashboard/club-requests'>Club Reguests</DashboardLink>
 
         {/* List item */}
         <li>
