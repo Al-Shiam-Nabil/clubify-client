@@ -3,6 +3,7 @@ import Container from '../Components/Shared/Container';
 import { NavLink, Outlet } from 'react-router';
 import DashboardLink from '../Components/Dashboard/DashboardLink';
 
+
 const DashboardLayout = () => {
     return (
 
@@ -29,8 +30,9 @@ const DashboardLayout = () => {
      {/* homepage link */}
       <DashboardLink to="/">Homepage</DashboardLink>
 
-      {/* admin club request link */}
-      <DashboardLink to='/dashboard/club-requests'>Club Reguests</DashboardLink>
+     <div className='mt-10'>
+       {/* admin club request link */}
+      <DashboardLink to='/dashboard/club-requests'  >Club Reguests</DashboardLink>
 
         {/* List item */}
         <li>
@@ -40,6 +42,7 @@ const DashboardLayout = () => {
             <span className="is-drawer-close:hidden">Settings</span>
           </button>
         </li>
+     </div>
       </ul>
     </div>
   </div>
