@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import useAxiosSecure from "../../../Hooks/useAxiossecure";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import LoadingComponent from "../../../Components/Shared/Loading/LoadingComponent";
 import { FiPlus } from "react-icons/fi";
 import { Link } from "react-router";
@@ -10,6 +10,8 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { useForm } from "react-hook-form";
 import useAuthHook from "../../../Hooks/useAuthHook";
 import axios from "axios";
+import { uploadImage } from "../../../Utils/uploadImage";
+import { sweetAlert } from "../../../Utils/Alert/SweetAlert";
 const MyClubPage = () => {
   const { user, loading } = useAuthHook();
   const [categories, setCategories] = useState(null);
@@ -19,7 +21,11 @@ const MyClubPage = () => {
 
   const modalRef = useRef(null);
 
-  const { data: clubs = [], isLoading } = useQuery({
+  const {
+    data: clubs = [],
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["clubRequests", "pending"],
     queryFn: async () => {
       const res = await axiosSecure.get("/clubs");
@@ -42,7 +48,6 @@ const MyClubPage = () => {
         description: club?.description,
         category: club?.category,
         location: club?.location,
-        bannerImage: club?.bannerImage,
         membershipFee: club?.membershipFee,
         managerName: club?.managerName,
         managerEmail: club?.managerEmail,
@@ -55,23 +60,47 @@ const MyClubPage = () => {
     setClub(updateClub);
   };
 
-  console.log(club);
-
   useEffect(() => {
     axios.get("/category.json").then((res) => {
-      console.log(res.data);
       setCategories(res?.data);
       setCategoryLoading(false);
     });
   }, []);
 
-  const handleUpdateClub = () => {};
+  const mutation = useMutation({
+    mutationFn: (updatedInfo) => {
+      return axiosSecure.patch(`/clubs/${club?._id}`, updatedInfo);
+    },
+    onSuccess: (data) => {
+      console.log(data.data);
+      if (data?.data?.modifiedCount === 0) {
+        modalRef.current.close();
+        sweetAlert("success", "No changes.");
+      } else {
+        modalRef.current.close();
+        refetch();
+        sweetAlert("success", "Club updated successfully.");
+      }
+    },
+  });
+
+  const handleUpdateClub = async (data) => {
+    if (data?.bannerImage.length === 0) {
+      data.bannerImage = club?.bannerImage;
+    } else {
+      const image = await uploadImage(data?.bannerImage);
+
+      data.bannerImage = image;
+    }
+
+    console.log(data);
+    mutation.mutate(data);
+  };
 
   if (loading || categoryLoading) {
     return <LoadingComponent></LoadingComponent>;
   }
 
-  console.log(clubs);
   return (
     <>
       <div className="flex justify-between items-center gap-5 mb-5">
@@ -146,7 +175,7 @@ const MyClubPage = () => {
         {/* You can open the modal using document.getElementById('ID').showModal() method */}
 
         <dialog ref={modalRef} className="modal modal-bottom sm:modal-middle">
-          <div className="modal-box w-11/12 max-w-5xl">
+          <div className="modal-box  w-11/12 max-w-5xl">
             <form
               onSubmit={handleSubmit(handleUpdateClub)}
               className="bg-neutral p-5  rounded-xl"
@@ -259,9 +288,7 @@ const MyClubPage = () => {
                     </label>
                     <input
                       type="file"
-                      {...register("bannerImage", {
-                        required: "Banner Image is required.",
-                      })}
+                      {...register("bannerImage")}
                       className="file-input w-full   focus:outline-2  focus:outline-secondary "
                     />
                     {errors.bannerImage && (
