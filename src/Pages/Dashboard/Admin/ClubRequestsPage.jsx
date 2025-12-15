@@ -11,7 +11,7 @@ import { formattedDate } from "../../../Utils/FormattedDate";
 
 const ClubRequestsPage = () => {
   const axiosSecure = useAxiosSecure();
-  const modalRef = useRef();
+  const modalRef = useRef(null);
   const [club, setClub] = useState();
   const { data: clubs = [], isLoading } = useQuery({
     queryKey: ["clubRequests", "pending"],
@@ -20,9 +20,6 @@ const ClubRequestsPage = () => {
       return res.data;
     },
   });
-g
-
-
 
   const handleModal = (club) => {
     modalRef.current.showModal();
@@ -65,7 +62,9 @@ g
                 </td>
                 <td className="capitalize">{club?.category}</td>
                 <td className="capitalize">{club?.location}</td>
-                <td className="capitalize">{club?.membershipFee === 0 ? 'Free' : club?.membershipFee}</td>
+                <td className="capitalize">
+                  {club?.membershipFee === 0 ? "Free" : club?.membershipFee}
+                </td>
                 <td className="">{formattedDate(club?.createdAt)}</td>
                 <td
                   className={`${
