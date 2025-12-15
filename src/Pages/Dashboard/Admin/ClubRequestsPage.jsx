@@ -2,11 +2,12 @@ import { useQuery } from "@tanstack/react-query";
 import React, { useRef, useState } from "react";
 import useAxiosSecure from "../../../Hooks/useAxiossecure";
 import LoadingComponent from "../../../Components/Shared/Loading/LoadingComponent";
-import { format } from "date-fns";
+
 import { IoSearch } from "react-icons/io5";
 import { IoMdPersonAdd } from "react-icons/io";
 import { FaUserMinus } from "react-icons/fa6";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import { formattedDate } from "../../../Utils/FormattedDate";
 
 const ClubRequestsPage = () => {
   const axiosSecure = useAxiosSecure();
@@ -19,15 +20,9 @@ const ClubRequestsPage = () => {
       return res.data;
     },
   });
+g
 
-  const formattedDate = (date) => {
-    const isoDate = date;
-    const newDate = format(new Date(isoDate), "dd/MMM/yyyy, h:m aaa");
 
-    return newDate;
-  };
-
-  formattedDate("2025-12-14T20:25:53.280Z");
 
   const handleModal = (club) => {
     modalRef.current.showModal();
@@ -49,6 +44,7 @@ const ClubRequestsPage = () => {
               <th>Club Name</th>
               <th>Category</th>
               <th>Location</th>
+              <th>Membership Fee</th>
               <th>Time</th>
               <th>Status</th>
               <th>Actions</th>
@@ -69,6 +65,7 @@ const ClubRequestsPage = () => {
                 </td>
                 <td className="capitalize">{club?.category}</td>
                 <td className="capitalize">{club?.location}</td>
+                <td className="capitalize">{club?.membershipFee === 0 ? 'Free' : club?.membershipFee}</td>
                 <td className="">{formattedDate(club?.createdAt)}</td>
                 <td
                   className={`${

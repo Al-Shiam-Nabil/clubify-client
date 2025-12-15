@@ -9,17 +9,15 @@ const useRoleHook = () => {
   const { user} = useAuthHook();
 
 
-  const { data:role='user', isLoading: roleLoading } = useQuery({
+  const { data:role='member', isLoading: roleLoading } = useQuery({
     queryKey: ["user-role", user?.email],
     queryFn: async () => {
       const res = await axiosSecure.get(`/users/${user?.email}/role`);
-      return res?.data?.role || 'user';
+      return res?.data?.role || 'member';
     },
   });
 
-//   if (loading || roleLoading) {
-//     return <LoadingComponent></LoadingComponent>;
-//   }
+
 
   return {role,roleLoading}
 };

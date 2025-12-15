@@ -6,9 +6,12 @@ import defaultUserImage from "../../../assets/user.png";
 import { CgProfile } from "react-icons/cg";
 import { TbLogout } from "react-icons/tb";
 import { sweetAlert } from "../../../Utils/Alert/SweetAlert";
+import useRoleHook from "../../../Hooks/useRoleHook";
 
 const Navbar = () => {
   const { user, loading, logOutUser } = useAuthHook();
+  const {role}=useRoleHook()
+  console.log(role)
 
   const handleLogOut = () => {
     logOutUser()
@@ -27,7 +30,7 @@ const Navbar = () => {
       <MyLink to="/events">Club Events</MyLink>
 
       {
-        user && <MyLink to="dashboard">Dashboard</MyLink>
+        user && <MyLink to={`/dashboard/${role}`}>Dashboard</MyLink> 
       }
     </>
 
