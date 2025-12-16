@@ -15,6 +15,10 @@ import ClubMemberPage from "../Pages/Dashboard/Manager/ClubMemberPage";
 import EventManagementPage from "../Pages/Dashboard/Manager/EventManagementPage";
 import EventRegistrationsPage from "../Pages/Dashboard/Manager/EventRegistrationsPage";
 import CreateEventPage from "../Pages/Dashboard/Manager/CreateEventPage";
+import MemberDashboardHome from "../Pages/Dashboard/Member/MemberDashboardHome";
+import AdminRoute from "./AdminRoute";
+import ManagerRoute from "./ManagerRoute";
+import MemberRoute from "./MemberRoute";
 
 export const router = createBrowserRouter([
   {
@@ -55,47 +59,67 @@ export const router = createBrowserRouter([
     path: "/dashboard/admin",
     element: (
       <PrivateRoute>
-        <DashboardLayout></DashboardLayout>
+        <AdminRoute><DashboardLayout></DashboardLayout></AdminRoute>
       </PrivateRoute>
     ),
-    children:[
-    {
-index:true,
-Component:AdminDashboardHome
-    },
+    children: [
       {
-        path:'club-requests',
-        element:<ClubRequestsPage></ClubRequestsPage>
-      }
-    ]
+        index: true,
+        Component: AdminDashboardHome,
+      },
+      {
+        path: "club-requests",
+        element: <ClubRequestsPage></ClubRequestsPage>,
+      },
+    ],
   },
   {
-    path:'dashboard/manager',
-    element:<PrivateRoute><DashboardLayout></DashboardLayout></PrivateRoute>,
+    path: "dashboard/manager",
+    element: (
+      <PrivateRoute>
+      <ManagerRoute>  <DashboardLayout></DashboardLayout></ManagerRoute>
+      </PrivateRoute>
+    ),
 
-  
-    children:[
+    children: [
       {
-        index:true,
-        element:<ManagerDashboardHome></ManagerDashboardHome>
+        index: true,
+        element: <ManagerDashboardHome></ManagerDashboardHome>,
       },
       {
-        path:'my-clubs',
-        element:<MyClubPage></MyClubPage>
+        path: "my-clubs",
+        element: <MyClubPage></MyClubPage>,
       },
       {
-        path:'club-members',
-        element:<ClubMemberPage></ClubMemberPage>
-      },{
-        path:"events-management",
-        element:<EventManagementPage></EventManagementPage>
-      },{
-        path:"event-registrations",
-        element:<EventRegistrationsPage></EventRegistrationsPage>
-      },{
-        path:"create-event",
-        element:<CreateEventPage></CreateEventPage>
-      }
-    ]
-  }
+        path: "club-members",
+        element: <ClubMemberPage></ClubMemberPage>,
+      },
+      {
+        path: "events-management",
+        element: <EventManagementPage></EventManagementPage>,
+      },
+      {
+        path: "event-registrations",
+        element: <EventRegistrationsPage></EventRegistrationsPage>,
+      },
+      {
+        path: "create-event",
+        element: <CreateEventPage></CreateEventPage>,
+      },
+    ],
+  },
+  {
+    path: "dashboard/member",
+    element: (
+      <PrivateRoute>
+       <MemberRoute> <DashboardLayout></DashboardLayout></MemberRoute>
+      </PrivateRoute>
+    ),
+    children: [
+      {
+        index: true,
+        element: <MemberDashboardHome></MemberDashboardHome>,
+      },
+    ],
+  },
 ]);

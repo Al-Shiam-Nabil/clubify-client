@@ -145,7 +145,7 @@ const EventManagementPage = () => {
           </Link>{" "}
           | <span className="font-semibold">Events Management</span>
         </p>
-        <Link
+        <Link 
           to="/dashboard/manager/create-event"
           className="btn btn-outline btn-secondary shadow-none"
         >

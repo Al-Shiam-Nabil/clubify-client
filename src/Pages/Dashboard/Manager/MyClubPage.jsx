@@ -395,7 +395,7 @@ const MyClubPage = () => {
                 </fieldset>
               </div>
               <button className="btn hover:btn-primary btn-secondary shadow-none  mt-5">
-                Request Registration
+               Update Club
               </button>
             </form>
 
