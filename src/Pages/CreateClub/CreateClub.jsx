@@ -74,7 +74,7 @@ const CreateClub = () => {
       <Container>
         <form
           onSubmit={handleSubmit(handleCreateClub)}
-          className="bg-neutral p-10 my-16 rounded-xl"
+          className="bg-neutral p-5 sm:p-10 my-16 rounded-xl"
         >
           <h2 className="text-center text-2xl font-bold text-secondary mb-8">
             Club Ragistration Form
@@ -203,14 +203,14 @@ const CreateClub = () => {
                   Membership Fee
                 </label>
                 <input
-                  type="text"
+                  type="num"
                   {...register("membershipFee", {
                     required: "Membership Fee is required.",
-                    pattern: {
-                      value: /^[0-9]+$/,
-                      message: "Only valid numbers are allowed.",
-                    },
-                    setValueAs: (value) => parseInt(value),
+                valueAsNumber:true,
+                min:{
+                  value:0,
+                  message:"Please enter valid amount."
+                }
                   })}
                   className="input w-full bg-secondary-content focus:outline-2  focus:outline-secondary "
                   placeholder="Membership Fee"

@@ -135,7 +135,7 @@ const MyClubPage = () => {
 
   return (
     <>
-      <div className="flex justify-between items-center gap-5 mb-5">
+      <div className="flex justify-between items-center gap-5 mb-5 flex-wrap">
         <p className="text-base-300">
           <Link className="hover:underline" to="/dashboard/manager">
             Dashboard

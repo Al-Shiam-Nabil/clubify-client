@@ -29,7 +29,7 @@ const DashboardLink = ({ children, to }) => {
           (to === "/dashboard/manager/club-members" && (
             <FaUsers className="text-[22px]" />
           )) ||
-          (to === "/dashboard/manager/events-mamagement" && (
+          (to === "/dashboard/manager/events-management" && (
             <MdOutlineEmojiEvents className="text-[22px]" />
           )) ||
           (to === "/dashboard/manager/event-registrations" && (

@@ -14,6 +14,7 @@ import ManagerDashboardHome from "../Pages/Dashboard/Manager/ManagerDashboardHom
 import ClubMemberPage from "../Pages/Dashboard/Manager/ClubMemberPage";
 import EventManagementPage from "../Pages/Dashboard/Manager/EventManagementPage";
 import EventRegistrationsPage from "../Pages/Dashboard/Manager/EventRegistrationsPage";
+import CreateEventPage from "../Pages/Dashboard/Manager/CreateEventPage";
 
 export const router = createBrowserRouter([
   {
@@ -86,11 +87,14 @@ Component:AdminDashboardHome
         path:'club-members',
         element:<ClubMemberPage></ClubMemberPage>
       },{
-        path:"events-mamagement",
+        path:"events-management",
         element:<EventManagementPage></EventManagementPage>
       },{
         path:"event-registrations",
         element:<EventRegistrationsPage></EventRegistrationsPage>
+      },{
+        path:"create-event",
+        element:<CreateEventPage></CreateEventPage>
       }
     ]
   }

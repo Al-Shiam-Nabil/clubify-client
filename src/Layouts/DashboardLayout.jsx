@@ -6,16 +6,16 @@ import useRoleHook from "../Hooks/useRoleHook";
 import LoadingComponent from "../Components/Shared/Loading/LoadingComponent";
 
 const DashboardLayout = () => {
-  const { role,roleLoading } = useRoleHook();
-if(roleLoading){
-  return <LoadingComponent></LoadingComponent>
-}
+  const { role, roleLoading } = useRoleHook();
+  if (roleLoading) {
+    return <LoadingComponent></LoadingComponent>;
+  }
   return (
     <div className="drawer lg:drawer-open max-w-[1400px] mx-auto">
       <input id="my-drawer-4" type="checkbox" className="drawer-toggle " />
       <div className="drawer-content ">
         {/* Navbar */}
-        <nav className="navbar w-full bg-base-200">
+        <nav className="navbar w-full bg-base-200 sticky top-0">
           <label
             htmlFor="my-drawer-4"
             aria-label="open sidebar"
@@ -81,25 +81,18 @@ if(roleLoading){
                     Club Members
                   </DashboardLink>
 
-                  <DashboardLink to="/dashboard/manager/events-mamagement">
-                   Events Management
+                  <DashboardLink to="/dashboard/manager/events-management">
+                    Events Management
                   </DashboardLink>
 
                   <DashboardLink to="/dashboard/manager/event-registrations">
-                   Event Registrations
+                    Event Registrations
                   </DashboardLink>
-
-                  
                 </>
               )}
 
               {/* member  role*/}
-              {
-                role === 'member' && <>
-                
-                </>
-              }
-
+              {role === "member" && <></>}
 
               {/* List item */}
               <li>
