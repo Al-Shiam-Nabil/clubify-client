@@ -6,7 +6,7 @@ import { format } from "date-fns";
         return '-'
     }
     const isoDate = date;
-    const newDate = format(new Date(isoDate), "dd/MMM/yyyy, h:m aaa");
+    const newDate = format(new Date(isoDate), "dd/MMM/yyyy, h:mm aaa");
 
     return newDate;
   };

@@ -267,7 +267,7 @@ const CreateEventPage = () => {
           </fieldset>
         </div>
         <button className="btn hover:btn-primary btn-secondary shadow-none  mt-5">
-          Request Registration
+         Submit Event
         </button>
       </form>
     </div>
