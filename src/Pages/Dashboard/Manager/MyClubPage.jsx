@@ -12,6 +12,7 @@ import useAuthHook from "../../../Hooks/useAuthHook";
 import axios from "axios";
 import { uploadImage } from "../../../Utils/uploadImage";
 import { sweetAlert } from "../../../Utils/Alert/SweetAlert";
+import Swal from "sweetalert2";
 const MyClubPage = () => {
   const { user, loading } = useAuthHook();
   const [categories, setCategories] = useState(null);
@@ -67,7 +68,8 @@ const MyClubPage = () => {
     });
   }, []);
 
-  const mutation = useMutation({
+  // update muttation
+  const updateMutation = useMutation({
     mutationFn: (updatedInfo) => {
       return axiosSecure.patch(`/clubs/${club?._id}`, updatedInfo);
     },
@@ -84,6 +86,18 @@ const MyClubPage = () => {
     },
   });
 
+  const deleteMutation = useMutation({
+    mutationFn: (deletedClub) => {
+      return axiosSecure.delete(`/clubs/${deletedClub?._id}`);
+    },
+    onSuccess: (data) => {
+      console.log(data.data);
+      if (data?.data?.deletedCount) {
+        sweetAlert("success", `Successfully deleted club.`);
+      }
+    },
+  });
+
   const handleUpdateClub = async (data) => {
     if (data?.bannerImage.length === 0) {
       data.bannerImage = club?.bannerImage;
@@ -94,17 +108,40 @@ const MyClubPage = () => {
     }
 
     console.log(data);
-    mutation.mutate(data);
+    updateMutation.mutate(data);
   };
 
   if (loading || categoryLoading) {
     return <LoadingComponent></LoadingComponent>;
   }
 
+  // delete club
+
+  const handleDeleteClub = (deletedClub) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: `You want to delete ${deletedClub?.clubName}!`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteMutation.mutate(deletedClub);
+      }
+    });
+  };
+
   return (
     <>
       <div className="flex justify-between items-center gap-5 mb-5">
-        <h2 className="text-lg font-bold">My Clubs</h2>
+        <h2 className="text-base-300">
+          <Link className="hover:underline" to="/dashboard/manager">
+            Dashboard
+          </Link>{" "}
+          | <span className="font-semibold">My Clubs</span>
+        </h2>
         <Link
           to="/create-club"
           className="btn btn-outline btn-secondary shadow-none"
@@ -161,7 +198,10 @@ const MyClubPage = () => {
                     >
                       <FaRegEdit className="text-xl text-blue-500" />
                     </button>
-                    <button className="btn btn-sm bg-red-100 border-none shadow-none hover:bg-secondary/50">
+                    <button
+                      onClick={() => handleDeleteClub(club)}
+                      className="btn btn-sm bg-red-100 border-none shadow-none hover:bg-secondary/50"
+                    >
                       <RiDeleteBin6Line className="text-xl text-red-500" />
                     </button>
                   </td>

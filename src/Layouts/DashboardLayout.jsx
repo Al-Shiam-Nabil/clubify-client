@@ -42,7 +42,7 @@ if(roleLoading){
           </div>
         </nav>
         {/* Page content here */}
-        <div className="p-4">
+        <div className="p-4 ">
           <Outlet></Outlet>
         </div>
       </div>
