@@ -1,14 +1,17 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router";
 import useAxiosSecure from "../../../Hooks/useAxiossecure";
 import useAuthHook from "../../../Hooks/useAuthHook";
 import LoadingComponent from "../../../Components/Shared/Loading/LoadingComponent";
+import { uploadImage } from "../../../Utils/uploadImage";
+import { sweetAlert } from "../../../Utils/Alert/SweetAlert";
 
 const CreateEventPage = () => {
   const axiosSecure = useAxiosSecure();
   const { user, loading } = useAuthHook();
+
   const {
     register,
     handleSubmit,
@@ -24,11 +27,31 @@ const CreateEventPage = () => {
     },
   });
 
+  const mutation = useMutation({
+    mutationFn: (event) => {
+      return axiosSecure.post(`/events/${event?.clubId}`, event);
+    },
+    onSuccess: (data) => {
+      if (data?.data?.insertedId) {
+        sweetAlert("success", "Event Create Successfully.");
+        reset();
+      }
+    },
+    onError: () => {
+      sweetAlert("error", "Something went Wrong.");
+    },
+  });
+
   if (loading || clubLoading) {
     return <LoadingComponent></LoadingComponent>;
   }
 
-  console.log(myClubs);
+  const handleCreateEvent = async (data) => {
+    const image = await uploadImage(data?.eventImage);
+    data.eventImage = image;
+    console.log(data);
+    mutation.mutate(data);
+  };
 
   return (
     <div>
@@ -49,7 +72,7 @@ const CreateEventPage = () => {
         </p>
       </div>
       <form
-        onSubmit={handleSubmit()}
+        onSubmit={handleSubmit(handleCreateEvent)}
         className="bg-neutral p-5 sm:p-10  rounded-xl"
       >
         <h2 className="text-center text-2xl font-bold text-secondary mb-8">
@@ -64,8 +87,8 @@ const CreateEventPage = () => {
               </label>
               <select
                 defaultValue=""
-                {...register("clubName", {
-                  required: "Category is required.",
+                {...register("clubId", {
+                  required: "Club is required.",
                 })}
                 className="select select-secondary border border-gray-300"
               >
@@ -73,15 +96,15 @@ const CreateEventPage = () => {
                   Select Club
                 </option>
                 {myClubs.map((club) => (
-                  <option value={club?.clubName.toLowerCase()} key={club?._id}>
+                  <option value={club?._id} key={club?._id}>
                     {club?.clubName}
                   </option>
                 ))}
               </select>
 
-              {errors.clubName && (
+              {errors.clubId && (
                 <p className="text-red-500 text-sm mt-1">
-                  {errors.clubName.message}
+                  {errors.clubId.message}
                 </p>
               )}
             </div>
@@ -213,6 +236,31 @@ const CreateEventPage = () => {
               {errors.eventFee && (
                 <p className="text-red-500 text-sm mt-1">
                   {errors.eventFee.message}
+                </p>
+              )}
+            </div>
+
+            {/* max attendence*/}
+            <div>
+              <label className="label text-base text-accent mb-1.5">
+                Max Atendees
+              </label>
+              <input
+                type="number"
+                {...register("maxAttendees", {
+                  valueAsNumber: true,
+                  min: {
+                    value: 0,
+                    message: "Please input valid amount.",
+                  },
+                })}
+                className="input w-full bg-secondary-content focus:outline-2  focus:outline-secondary "
+                placeholder="Max attendess"
+              />
+
+              {errors.maxAttendees && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.maxAttendees.message}
                 </p>
               )}
             </div>
