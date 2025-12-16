@@ -12,6 +12,7 @@ import { format } from "date-fns";
 import { useForm } from "react-hook-form";
 import { uploadImage } from "../../../Utils/uploadImage";
 import { sweetAlert } from "../../../Utils/Alert/SweetAlert";
+import Swal from "sweetalert2";
 
 const EventManagementPage = () => {
   const axiosSecure = useAxiosSecure();
@@ -20,7 +21,11 @@ const EventManagementPage = () => {
   const modalRef = useRef(null);
 
   //   events
-  const { data: events = [], isLoading: eventLoading,refetch } = useQuery({
+  const {
+    data: events = [],
+    isLoading: eventLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["managerEvents"],
     queryFn: async () => {
       const res = await axiosSecure.get(`/events?email=${user?.email}`);
@@ -36,21 +41,43 @@ const EventManagementPage = () => {
     formState: { errors },
   } = useForm();
 
-  const mutation=useMutation({
-    mutationFn:(info)=>{
-        return axiosSecure.patch(`/events/${updateEvent?._id}`,info)
-    },onSuccess:(data)=>{
-        console.log(data?.data)
-        if (data?.data?.modifiedCount === 0) {
-               modalRef.current.close();
-               sweetAlert("success", "No changes.");
-             } else {
-               modalRef.current.close();
-               refetch();
-               sweetAlert("success", "Event updated successfully.");
-             }
-    }
-  })
+  //   update
+  const mutation = useMutation({
+    mutationFn: (info) => {
+      return axiosSecure.patch(`/events/${updateEvent?._id}`, info);
+    },
+    onSuccess: (data) => {
+      console.log(data?.data);
+      if (data?.data?.modifiedCount === 0) {
+        modalRef.current.close();
+        sweetAlert("success", "No changes.");
+      } else {
+        modalRef.current.close();
+        refetch();
+        sweetAlert("success", "Event updated successfully.");
+      }
+    },
+  });
+
+  //   delete
+
+  const deleteMutation = useMutation({
+    mutationFn: (del) => {
+      return axiosSecure.delete(`/events/${del?._id}`);
+    },
+    onSuccess: (data) => {
+      console.log(data.data);
+      console.log(data.data);
+      if (data?.data?.deletedCount) {
+        refetch();
+        sweetAlert("success", `Successfully deleted Event.`);
+      }
+    },
+    onError: (error) => {
+      console.error(error);
+      sweetAlert("error", "Something went Wrong.");
+    },
+  });
 
   useEffect(() => {
     if (updateEvent) {
@@ -83,8 +110,6 @@ const EventManagementPage = () => {
     setUpdateEvent(event);
   };
 
-
-
   const handleUpdateEvent = async (data) => {
     if (data?.eventImage.length === 0) {
       data.eventImage = updateEvent?.eventImage;
@@ -92,8 +117,23 @@ const EventManagementPage = () => {
       data.eventImage = await uploadImage(data?.eventImage);
     }
 
-    mutation.mutate(data)
-  
+    mutation.mutate(data);
+  };
+
+  const handleDeleteEvent = (delEvent) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: `You want to delete ${delEvent?.title}!`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteMutation.mutate(delEvent);
+      }
+    });
   };
 
   return (
@@ -160,7 +200,10 @@ const EventManagementPage = () => {
                     >
                       <FaRegEdit className="text-xl text-blue-500" />
                     </button>
-                    <button className="btn btn-sm bg-red-100 border-none shadow-none hover:bg-secondary/50">
+                    <button
+                      onClick={() => handleDeleteEvent(event)}
+                      className="btn btn-sm bg-red-100 border-none shadow-none hover:bg-secondary/50"
+                    >
                       <RiDeleteBin6Line className="text-xl text-red-500" />
                     </button>
                   </td>

@@ -93,6 +93,7 @@ const MyClubPage = () => {
     onSuccess: (data) => {
       console.log(data.data);
       if (data?.data?.deletedCount) {
+        refetch()
         sweetAlert("success", `Successfully deleted club.`);
       }
     },
