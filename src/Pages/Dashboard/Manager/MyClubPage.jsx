@@ -136,12 +136,12 @@ const MyClubPage = () => {
   return (
     <>
       <div className="flex justify-between items-center gap-5 mb-5">
-        <h2 className="text-base-300">
+        <p className="text-base-300">
           <Link className="hover:underline" to="/dashboard/manager">
             Dashboard
           </Link>{" "}
           | <span className="font-semibold">My Clubs</span>
-        </h2>
+        </p>
         <Link
           to="/create-club"
           className="btn btn-outline btn-secondary shadow-none"

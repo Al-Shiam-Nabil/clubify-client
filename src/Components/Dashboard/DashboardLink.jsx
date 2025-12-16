@@ -3,6 +3,8 @@ import { FaUserPlus } from "react-icons/fa6";
 import { NavLink } from "react-router";
 import { GoHomeFill } from "react-icons/go";
 import { CgNotes } from "react-icons/cg";
+import { FaClipboardList, FaUsers } from "react-icons/fa";
+import { MdEventAvailable, MdOutlineEmojiEvents } from "react-icons/md";
 
 const DashboardLink = ({ children, to }) => {
   return (
@@ -23,6 +25,15 @@ const DashboardLink = ({ children, to }) => {
           )) ||
           (to === "/dashboard/manager/my-clubs" && (
             <CgNotes className="text-[22px]" />
+          )) ||
+          (to === "/dashboard/manager/club-members" && (
+            <FaUsers className="text-[22px]" />
+          )) ||
+          (to === "/dashboard/manager/events-mamagement" && (
+            <MdOutlineEmojiEvents className="text-[22px]" />
+          )) ||
+          (to === "/dashboard/manager/event-registrations" && (
+            <MdEventAvailable className="text-[22px]" />
           ))}
 
         <span className="is-drawer-close:hidden whitespace-nowrap">

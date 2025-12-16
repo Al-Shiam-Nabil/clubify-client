@@ -76,6 +76,20 @@ if(roleLoading){
                   <DashboardLink to="/dashboard/manager/my-clubs">
                     My Clubs
                   </DashboardLink>
+
+                  <DashboardLink to="/dashboard/manager/club-members">
+                    Club Members
+                  </DashboardLink>
+
+                  <DashboardLink to="/dashboard/manager/events-mamagement">
+                   Events Management
+                  </DashboardLink>
+
+                  <DashboardLink to="/dashboard/manager/event-registrations">
+                   Event Registrations
+                  </DashboardLink>
+
+                  
                 </>
               )}
 
