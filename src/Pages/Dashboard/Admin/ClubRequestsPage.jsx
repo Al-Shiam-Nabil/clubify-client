@@ -27,14 +27,15 @@ const ClubRequestsPage = () => {
   });
 
   // update status
-  const mutation = useMutation({
+
+    const approveMutation = useMutation({
     mutationFn: (statusInfo) => {
       return axiosSecure.patch(`/clubs/${statusInfo?._id}/status`, statusInfo);
     },
     onSuccess: (data) => {
       console.log(data?.data);
       if (data?.data?.modifiedCount) {
-        sweetAlert("success", "You approved.");
+        sweetAlert("success","You Approved.");
         refetch()
       }
     },
@@ -44,10 +45,44 @@ const ClubRequestsPage = () => {
     },
   });
 
+  // reject club
+   const rejectMutation = useMutation({
+    mutationFn: (statusInfo) => {
+      return axiosSecure.patch(`/clubs/${statusInfo?._id}/status`, statusInfo);
+    },
+    onSuccess: (data) => {
+      console.log(data?.data);
+      if (data?.data?.modifiedCount) {
+        sweetAlert("success","You Rejected.");
+        refetch()
+      }
+    },
+    onError: (error) => {
+      console.error(error);
+      sweetAlert("error", "Something went wrong");
+    },
+  });
+
+  // delete club
+    const deleteMutation = useMutation({
+      mutationFn: (deletedClub) => {
+        return axiosSecure.delete(`/clubs/${deletedClub?._id}`);
+      },
+      onSuccess: (data) => {
+        console.log(data.data);
+        if (data?.data?.deletedCount) {
+          refetch()
+          sweetAlert("success", `Successfully deleted club.`);
+        }
+      },
+    });
+
+
   const handleModal = (club) => {
     modalRef.current.showModal();
     setClub(club);
   };
+
 
   const handleApprove = (club) => {
     Swal.fire({
@@ -62,10 +97,48 @@ const ClubRequestsPage = () => {
       if (result.isConfirmed) {
         club.status = "approved";
 
-        mutation.mutate(club);
+        approveMutation.mutate(club);
+ 
       }
     });
   };
+
+
+  const handleReject=(club)=>{
+    Swal.fire({
+      title: "Are you sure?",
+      text: `You want to Reject ${club?.clubName}!`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, reject it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        club.status = "rejected";
+
+        rejectMutation.mutate(club);
+ 
+      }
+    });
+  }
+
+
+  const handleDelete=(club)=>{
+       Swal.fire({
+          title: "Are you sure?",
+          text: `You want to delete ${club?.clubName}!`,
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes, delete it!",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            deleteMutation.mutate(club);
+          }
+        });
+  }
 
   return (
     <>
@@ -90,9 +163,11 @@ const ClubRequestsPage = () => {
                 <th>Club Name</th>
                 <th>Category</th>
                 <th>Location</th>
-                <th>Membership Fee</th>
+                <th> Fee</th>
                 <th>Requested Time</th>
-                <th>Verify Time</th>
+                <th>Verified Time</th>
+                <th>Members</th>
+                <th>Events</th>
                 <th>Status</th>
                 <th>Actions</th>
               </tr>
@@ -117,6 +192,8 @@ const ClubRequestsPage = () => {
                   </td>
                   <td className="">{formattedDate(club?.createdAt)}</td>
                   <td>{club?.verifiedAt ? formattedDate(club?.verifiedAt) : '-'}</td>
+                  <td>{club?.membersCount}</td>
+                  <td>{club?.eventsCount}</td>
                   <td
                     className={`${
                       (club?.status === "pending" && "text-blue-500") ||
@@ -134,6 +211,8 @@ const ClubRequestsPage = () => {
                     >
                       <IoSearch className="text-xl text-blue-500" />
                     </button>
+
+                    {/* approve btn */}
                     <button
                     disabled={club?.status === 'approved'}
                       onClick={() => handleApprove(club)}
@@ -141,10 +220,13 @@ const ClubRequestsPage = () => {
                     >
                       <IoMdPersonAdd className="text-xl " />
                     </button>
-                    <button className="btn btn-sm bg-orange-100 border-none shadow-none hover:bg-secondary/50">
-                      <FaUserMinus className="text-xl text-orange-500" />
+
+                    {/* reject btn */}
+                    <button   disabled={club?.status === 'rejected'} onClick={()=>handleReject(club)} className={`${club?.status === 'rejected' ? 'bg-gray-300 text-gray-500' : 'bg-orange-100 text-orange-500'} btn btn-sm  border-none shadow-none hover:bg-secondary/50`}>
+                      <FaUserMinus className="text-xl" />
                     </button>
-                    <button className="btn btn-sm bg-red-100 border-none shadow-none hover:bg-secondary/50">
+                    {/* delete btn */}
+                    <button onClick={()=>handleDelete(club)} className="btn btn-sm bg-red-100 border-none shadow-none hover:bg-secondary/50">
                       <RiDeleteBin6Line className="text-xl text-red-500" />
                     </button>
                   </td>
@@ -196,6 +278,17 @@ const ClubRequestsPage = () => {
                 <span className="font-semibold capitalize">Location : </span>
                 {club?.location}
               </p>
+
+   <p>
+                <span className="font-semibold capitalize">Members : </span>
+                {club?.membersCount}
+              </p>
+
+                 <p>
+                <span className="font-semibold capitalize">Events : </span>
+                {club?.eventsCount}
+              </p>
+
               <p>
                 <span className="font-semibold">Time : </span>
                 {formattedDate(club?.createdAt)}
