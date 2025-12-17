@@ -67,6 +67,9 @@ const DashboardLayout = () => {
                   <DashboardLink to="/dashboard/admin/club-requests">
                     Club Reguests
                   </DashboardLink>
+                  <DashboardLink to="/dashboard/admin/manage-users">
+                   Manage Users
+                  </DashboardLink>
                 </>
               )}
 

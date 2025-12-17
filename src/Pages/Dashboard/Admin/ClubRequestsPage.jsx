@@ -235,7 +235,10 @@ const ClubRequestsPage = () => {
             </tbody>
           </table>
         )}
-        {/* modal */}
+    
+      </div>
+
+          {/* modal */}
         {/* You can open the modal using document.getElementById('ID').showModal() method */}
 
         <dialog ref={modalRef} className="modal modal-bottom sm:modal-middle">
@@ -313,7 +316,6 @@ const ClubRequestsPage = () => {
             </div>
           </div>
         </dialog>
-      </div>
     </>
   );
 };

@@ -34,6 +34,9 @@ const DashboardLink = ({ children, to }) => {
           )) ||
           (to === "/dashboard/manager/event-registrations" && (
             <MdEventAvailable className="text-[22px]" />
+          )) ||
+          (to === "/dashboard/admin/manage-users" && (
+             <FaUsers className="text-[22px]" />
           ))}
 
         <span className="is-drawer-close:hidden whitespace-nowrap">

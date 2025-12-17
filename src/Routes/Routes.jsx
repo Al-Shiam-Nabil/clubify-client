@@ -19,6 +19,7 @@ import MemberDashboardHome from "../Pages/Dashboard/Member/MemberDashboardHome";
 import AdminRoute from "./AdminRoute";
 import ManagerRoute from "./ManagerRoute";
 import MemberRoute from "./MemberRoute";
+import ManageUsersPage from "../Pages/Dashboard/Admin/manageUsersPage";
 
 export const router = createBrowserRouter([
   {
@@ -59,7 +60,9 @@ export const router = createBrowserRouter([
     path: "/dashboard/admin",
     element: (
       <PrivateRoute>
-        <AdminRoute><DashboardLayout></DashboardLayout></AdminRoute>
+        <AdminRoute>
+          <DashboardLayout></DashboardLayout>
+        </AdminRoute>
       </PrivateRoute>
     ),
     children: [
@@ -71,13 +74,20 @@ export const router = createBrowserRouter([
         path: "club-requests",
         element: <ClubRequestsPage></ClubRequestsPage>,
       },
+      {
+        path: "manage-users",
+        element:<ManageUsersPage></ManageUsersPage>
+      },
     ],
   },
   {
     path: "dashboard/manager",
     element: (
       <PrivateRoute>
-      <ManagerRoute>  <DashboardLayout></DashboardLayout></ManagerRoute>
+        <ManagerRoute>
+          {" "}
+          <DashboardLayout></DashboardLayout>
+        </ManagerRoute>
       </PrivateRoute>
     ),
 
@@ -112,13 +122,16 @@ export const router = createBrowserRouter([
     path: "dashboard/member",
     element: (
       <PrivateRoute>
-       <MemberRoute> <DashboardLayout></DashboardLayout></MemberRoute>
+        <MemberRoute>
+          {" "}
+          <DashboardLayout></DashboardLayout>
+        </MemberRoute>
       </PrivateRoute>
     ),
     children: [
       {
         index: true,
-        element: <MemberDashboardHome></MemberDashboardHome>
+        element: <MemberDashboardHome></MemberDashboardHome>,
       },
     ],
   },
