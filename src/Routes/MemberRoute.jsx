@@ -10,7 +10,7 @@ const MemberRoute = ({children}) => {
     return <LoadingComponent></LoadingComponent>;
   }
 
-  if (role !== "admin") {
+  if (role !== "member") {
     return <Navigate to="/"></Navigate>;
   }
   return children;

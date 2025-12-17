@@ -118,7 +118,7 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <MemberDashboardHome></MemberDashboardHome>,
+        element: <MemberDashboardHome></MemberDashboardHome>
       },
     ],
   },

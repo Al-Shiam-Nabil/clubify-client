@@ -20,6 +20,8 @@ const EventManagementPage = () => {
   const [updateEvent, setUpdateEvent] = useState(null);
   const modalRef = useRef(null);
 
+
+
   //   events
   const {
     data: events = [],

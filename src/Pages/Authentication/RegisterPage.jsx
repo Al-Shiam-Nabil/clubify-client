@@ -35,7 +35,7 @@ const RegisterPage = () => {
 
   const mutation = useMutation({
     mutationFn: (userInfo) => {
-      return axios.post("http://localhost:4000//users", userInfo);
+      return axios.post("http://localhost:4000/users", userInfo);
     },
     onSuccess: (data) => {
       if (data?.data?.insertedId) {

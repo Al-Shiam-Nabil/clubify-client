@@ -27,9 +27,9 @@ const MyClubPage = () => {
     isLoading,
     refetch,
   } = useQuery({
-    queryKey: ["clubRequests", "pending"],
+    queryKey: ["clubRequests"],
     queryFn: async () => {
-      const res = await axiosSecure.get("/clubs");
+      const res = await axiosSecure.get(`/clubs?email=${user?.email}`);
       return res.data;
     },
   });
