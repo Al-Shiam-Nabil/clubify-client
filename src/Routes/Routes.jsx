@@ -20,6 +20,7 @@ import AdminRoute from "./AdminRoute";
 import ManagerRoute from "./ManagerRoute";
 import MemberRoute from "./MemberRoute";
 import ManageUsersPage from "../Pages/Dashboard/Admin/manageUsersPage";
+import TransactionsPage from "../Pages/Dashboard/Admin/TransactionsPage";
 
 export const router = createBrowserRouter([
   {
@@ -77,7 +78,10 @@ export const router = createBrowserRouter([
       {
         path: "manage-users",
         element:<ManageUsersPage></ManageUsersPage>
-      },
+      },{
+        path:"transactions",
+        element:<TransactionsPage/>
+      }
     ],
   },
   {

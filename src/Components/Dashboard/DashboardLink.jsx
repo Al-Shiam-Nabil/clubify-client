@@ -5,6 +5,8 @@ import { GoHomeFill } from "react-icons/go";
 import { CgNotes } from "react-icons/cg";
 import { FaClipboardList, FaUsers } from "react-icons/fa";
 import { MdEventAvailable, MdOutlineEmojiEvents } from "react-icons/md";
+import { HiMiniDocumentCurrencyBangladeshi } from "react-icons/hi2";
+
 
 const DashboardLink = ({ children, to }) => {
   return (
@@ -36,7 +38,10 @@ const DashboardLink = ({ children, to }) => {
             <MdEventAvailable className="text-[22px]" />
           )) ||
           (to === "/dashboard/admin/manage-users" && (
-             <FaUsers className="text-[22px]" />
+            <FaUsers className="text-[22px]" />
+          )) ||
+          (to === "/dashboard/admin/transactions" && (
+            <HiMiniDocumentCurrencyBangladeshi className="text-[22px]" />
           ))}
 
         <span className="is-drawer-close:hidden whitespace-nowrap">

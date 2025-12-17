@@ -70,6 +70,10 @@ const DashboardLayout = () => {
                   <DashboardLink to="/dashboard/admin/manage-users">
                    Manage Users
                   </DashboardLink>
+
+                  <DashboardLink to="/dashboard/admin/transactions">
+                  Transactions
+                  </DashboardLink>
                 </>
               )}
 

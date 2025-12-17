@@ -179,7 +179,7 @@ const MyClubPage = () => {
                   <td className="capitalize">{club?.category}</td>
                   <td className="capitalize">{club?.location}</td>
                   <td className="">{formattedDate(club?.createdAt)}</td>
-                  <td></td>
+                  <td>{formattedDate(club?.verifiedAt)}</td>
                   <td
                     className={`${
                       (club?.status === "pending" && "text-blue-500") ||
