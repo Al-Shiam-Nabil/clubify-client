@@ -1,7 +1,7 @@
 import React from 'react';
 
 const ClubCard = ({club}) => {
-  console.log(club)
+
     return (
         <>
         <div

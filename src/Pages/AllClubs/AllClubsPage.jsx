@@ -1,23 +1,36 @@
 import React, { useState } from "react";
 import Container from "../../Components/Shared/Container";
-import useAxiosSecure from "../../Hooks/useAxiossecure";
+
 import { useQuery } from "@tanstack/react-query";
 import ClubCard from "../../Components/Shared/ClubCard/ClubCard";
 import { MoonLoader } from "react-spinners";
+import axios from "axios";
 
 const AllClubsPage = () => {
-  const axiosSecure = useAxiosSecure();
   const [sort, setSort] = useState("createdAt");
-  const [order, setOrder] = useState('');
-  const { data: clubs, isLoading: clubLoading } = useQuery({
-    queryKey: ["allClubs",sort,order],
+  const [order, setOrder] = useState("");
+  const [filterCategory, setFilterCategory] = useState("");
+
+  //   all clubs
+  const { data: clubs = [], isLoading: clubLoading } = useQuery({
+    queryKey: ["allClubs", sort, order, filterCategory],
     queryFn: async () => {
-      const res = await axiosSecure.get(
-        `/all-clubs?sort=${sort}&order=${order}`
+      const res = await axios.get(
+        `http://localhost:4000/all-clubs?sort=${sort}&order=${order}&filter=${filterCategory}`
       );
       return res.data;
     },
   });
+
+  //   all categories
+  const { data: allCategoriesData = [], isLoading: allCategoriesLoading } =
+    useQuery({
+      queryKey: ["allCategories"],
+      queryFn: async () => {
+        const res = await axios.get(`http://localhost:4000/all-categories`);
+        return res.data;
+      },
+    });
 
   const handleSort = (e) => {
     const sortedText = e.target.value.split("-");
@@ -25,9 +38,17 @@ const AllClubsPage = () => {
     setOrder(sortedText[1]);
   };
 
-  console.log(sort, order);
 
-  console.log(clubs);
+      const allCategories = allCategoriesData?.map((cat) => cat?.category);
+      const categories = [...new Set(allCategories)];
+
+
+
+  console.log(categories);
+
+  const handleFilter = (e) => {
+    setFilterCategory(e.target.value);
+  };
 
   return (
     <Container>
@@ -71,11 +92,23 @@ const AllClubsPage = () => {
 
         <div className="flex">
           <label className="label mr-3">Filter By</label>
-          <select defaultValue="Pick a color" className="select w-[250px]">
-            <option disabled={true}>Pick a color</option>
-            <option>Crimson</option>
-            <option>Amber</option>
-            <option>Velvet</option>
+          <select
+            onChange={(value) => handleFilter(value)}
+            className="select w-[250px]"
+          >
+            <option disabled={true}>Filter by Category</option>
+            <option value="">All Categories</option>
+
+            {!allCategoriesLoading &&
+              categories.map((category, index) => (
+                <option
+                  className="capitalize"
+                  value={category.toLowerCase()}
+                  key={index}
+                >
+                  {category}
+                </option>
+              ))}
           </select>
         </div>
       </div>
