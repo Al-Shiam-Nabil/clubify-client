@@ -36,7 +36,7 @@ const axiosSecure=useAxiosSecure()
       </p>
 
       {
-        clubs.length === 0 ? <h2 className="font-semi bold text-center text-xl text-error">No feature club available naow.</h2> : <>
+        clubs.length === 0 ? <h2 className="font-semibold text-center text-xl text-error">No feature club available now.</h2> : <>
            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-8">
 
             {clubs.map(club=>  <ClubCard key={club?._id} club={club}></ClubCard>)}
