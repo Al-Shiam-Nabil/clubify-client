@@ -68,11 +68,11 @@ const DashboardLayout = () => {
                     Club Reguests
                   </DashboardLink>
                   <DashboardLink to="/dashboard/admin/manage-users">
-                   Manage Users
+                    Manage Users
                   </DashboardLink>
 
                   <DashboardLink to="/dashboard/admin/transactions">
-                  Transactions
+                    Transactions
                   </DashboardLink>
                 </>
               )}
@@ -99,7 +99,19 @@ const DashboardLayout = () => {
               )}
 
               {/* member  role*/}
-              {role === "member" && <></>}
+              {role === "member" && (
+                <>
+                  <DashboardLink to="/dashboard/member/my-clubs">
+                    My Clubs
+                  </DashboardLink>
+                  <DashboardLink to="/dashboard/member/my-events">
+                    My Events
+                  </DashboardLink>
+                  <DashboardLink to="/dashboard/member/payment-history">
+                   Payment History
+                  </DashboardLink>
+                </>
+              )}
 
               {/* List item */}
               <li>

@@ -42,7 +42,19 @@ const DashboardLink = ({ children, to }) => {
           )) ||
           (to === "/dashboard/admin/transactions" && (
             <HiMiniDocumentCurrencyBangladeshi className="text-[22px]" />
-          ))}
+          )) ||
+           (to === "/dashboard/member/my-clubs" && (
+            <CgNotes className="text-[22px]" />
+          )) ||
+          (to === "/dashboard/member/my-events" && (
+            <MdOutlineEmojiEvents className="text-[22px]" />
+          )) ||
+
+           (to === "/dashboard/member/payment-history" && (
+            <HiMiniDocumentCurrencyBangladeshi className="text-[22px]" />
+          ))
+          
+          }
 
         <span className="is-drawer-close:hidden whitespace-nowrap">
           {children}

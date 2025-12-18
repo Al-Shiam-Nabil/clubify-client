@@ -1,142 +1,38 @@
 import React from 'react';
 
-const ClubCard = () => {
+const ClubCard = ({club}) => {
+  console.log(club)
     return (
         <>
         <div
           className="group bg-white  rounded-xl relative transition-all duration-500  sm:h-80 h-60 flex items-center justify-center hover:scale-102 ease-in-out "
           style={{
             backgroundImage:
-              "url('https://pagedone.io/asset/uploads/1688029384.png')",
+              `url(${club?.bannerImage})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
         >
-          <div className=" absolute sm:bottom-5 sm:left-5 left-3 bottom-5">
-            <h3 className="text-secondary-content font-semibold text-lg hover:underline inline-block cursor-pointer">
-              Friends Club
+          <div className=" absolute bottom-0 p-3 rounded-b-xl backdrop-blur-sm bg-black/50 w-full">
+            <h3 className="text-secondary-content font-medium truncate hover:underline inline-block cursor-pointer capitalize">
+              {club?.clubName}
             </h3>
-            <h6 className=" text-secondary-content">Explore your own goal</h6>
+            <h6 className=" text-secondary-content capitalize text-sm">{club?.location}</h6>
           </div>
         </div>
 
-        <div
-          className="group bg-white  rounded-xl relative transition-all duration-500  sm:h-80 h-60 flex items-center justify-center hover:scale-102 ease-in-out "
-          style={{
-            backgroundImage:
-              "url('https://pagedone.io/asset/uploads/1688029384.png')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        >
-          <div className=" absolute sm:bottom-5 sm:left-5 left-3 bottom-5">
-            <h3 className="text-secondary-content font-semibold text-lg hover:underline inline-block cursor-pointer">
-              Friends Club
-            </h3>
-            <h6 className=" text-secondary-content">Explore your own goal</h6>
-          </div>
-        </div>
+      
 
-        <div
-          className="group bg-white  rounded-xl relative transition-all duration-500  sm:h-80 h-60 flex items-center justify-center hover:scale-102 ease-in-out "
-          style={{
-            backgroundImage:
-              "url('https://pagedone.io/asset/uploads/1688029384.png')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        >
-          <div className=" absolute sm:bottom-5 sm:left-5 left-3 bottom-5">
-            <h3 className="text-secondary-content font-semibold text-lg hover:underline inline-block cursor-pointer">
-              Friends Club
-            </h3>
-            <h6 className=" text-secondary-content">Explore your own goal</h6>
-          </div>
-        </div>
+     
 
-        <div
-          className="group bg-white  rounded-xl relative transition-all duration-500  sm:h-80 h-60 flex items-center justify-center hover:scale-102 ease-in-out "
-          style={{
-            backgroundImage:
-              "url('https://pagedone.io/asset/uploads/1688029384.png')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        >
-          <div className=" absolute sm:bottom-5 sm:left-5 left-3 bottom-5">
-            <h3 className="text-secondary-content font-semibold text-lg hover:underline inline-block cursor-pointer">
-              Friends Club
-            </h3>
-            <h6 className=" text-secondary-content">Explore your own goal</h6>
-          </div>
-        </div>
-        <div
-          className="group bg-white  rounded-xl relative transition-all duration-500  sm:h-80 h-60 flex items-center justify-center hover:scale-102 ease-in-out "
-          style={{
-            backgroundImage:
-              "url('https://pagedone.io/asset/uploads/1688029384.png')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        >
-          <div className=" absolute sm:bottom-5 sm:left-5 left-3 bottom-5">
-            <h3 className="text-secondary-content font-semibold text-lg hover:underline inline-block cursor-pointer">
-              Friends Club
-            </h3>
-            <h6 className=" text-secondary-content">Explore your own goal</h6>
-          </div>
-        </div>
+        
+     
 
 
-        <div
-          className="group bg-white  rounded-xl relative transition-all duration-500  sm:h-80 h-60 flex items-center justify-center hover:scale-102 ease-in-out "
-          style={{
-            backgroundImage:
-              "url('https://pagedone.io/asset/uploads/1688029384.png')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        >
-          <div className=" absolute sm:bottom-5 sm:left-5 left-3 bottom-5">
-            <h3 className="text-secondary-content font-semibold text-xl hover:underline inline-block cursor-pointe">
-              Friends Club
-            </h3>
-            <h6 className=" text-secondary-content">Explore your own goal</h6>
-          </div>
-        </div>
-        <div
-          className="group bg-white  rounded-xl relative transition-all duration-500  sm:h-80 h-60 flex items-center justify-center hover:scale-102 ease-in-out "
-          style={{
-            backgroundImage:
-              "url('https://pagedone.io/asset/uploads/1688029384.png')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        >
-          <div className=" absolute sm:bottom-5 sm:left-5 left-3 bottom-5">
-            <h3 className="text-secondary-content font-semibold text-xl hover:underline inline-block cursor-pointe">
-              Friends Club
-            </h3>
-            <h6 className=" text-secondary-content">Explore your own goal</h6>
-          </div>
-        </div>
+       
+       
 
-        <div
-          className="group bg-white  rounded-xl relative transition-all duration-500  sm:h-80 h-60 flex items-center justify-center hover:scale-102 ease-in-out "
-          style={{
-            backgroundImage:
-              "url('https://pagedone.io/asset/uploads/1688029384.png')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        >
-          <div className=" absolute sm:bottom-5 sm:left-5 left-3 bottom-5">
-            <h3 className="text-secondary-content font-semibold text-xl hover:underline inline-block cursor-pointe">
-              Friends Club
-            </h3>
-            <h6 className=" text-secondary-content">Explore your own goal</h6>
-          </div>
-        </div>
+        
         </>
     );
 };

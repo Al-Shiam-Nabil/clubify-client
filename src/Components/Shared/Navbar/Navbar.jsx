@@ -26,7 +26,7 @@ const Navbar = () => {
   const links = (
     <>
       <MyLink to="/">Home</MyLink>
-      <MyLink to="/clubs">All Clubs</MyLink>
+      <MyLink to="/all-clubs">All Clubs</MyLink>
       <MyLink to="/events">Club Events</MyLink>
 
       {
@@ -43,7 +43,7 @@ const Navbar = () => {
         {" "}
         <div className="navbar-start">
           <div className="dropdown">
-            <div tabIndex={0} role="button" className=" lg:hidden mr-4">
+            <div tabIndex={0} role="button" className=" lg:hidden mr-3 sm:mr-4">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-7 w-7"
@@ -67,7 +67,7 @@ const Navbar = () => {
               {links}
             </ul>
           </div>
-          <a className="text-2xl font-primary text-secondary font-bold">
+          <a className="text-xl sm:text-2xl font-primary text-secondary font-bold">
             Clubify
           </a>
         </div>
@@ -125,16 +125,16 @@ const Navbar = () => {
               </ul>
             </div>
           ) : (
-            <div className="space-x-5">
+            <div className=" sm:space-x-5">
               <Link
                 to="/login"
-                className="btn btn-outline text-base-100 hover:bg-secondary border-secondary shadow-none duration-400"
+                className="btn btn-sm sm:btn-md btn-outline text-base-100 hover:bg-secondary border-secondary shadow-none duration-400"
               >
                 Log in
               </Link>
               <Link
                 to="/register"
-                className="btn btn-secondary shadow-none hover:bg-transparent duration-500"
+                className="btn btn-sm sm:btn-md hidden sm:inline-flex btn-secondary shadow-none hover:bg-transparent duration-500"
               >
                 Register
               </Link>

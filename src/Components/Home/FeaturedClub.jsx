@@ -3,9 +3,29 @@ import Heading2 from "../Shared/Headings/Heading2";
 import Container from "../Shared/Container";
 import { FaArrowRight } from "react-icons/fa";
 import ClubCard from "../Shared/ClubCard/ClubCard";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosSecure from "../../Hooks/useAxiossecure";
+import { MoonLoader } from "react-spinners";
 
 
 const FeaturedClub = () => {
+const axiosSecure=useAxiosSecure()
+  const {data:clubs=[],isLoading:clubLoading}=useQuery({
+    queryKey:['featuredClubs'],
+    queryFn:async()=>{
+      const res=await axiosSecure.get('/latest-clubs')
+      return res.data
+    }
+  })
+
+  if(clubLoading){
+    return <div className="grid justify-center h-[350px] mt-10">
+        <MoonLoader size={30} speedMultiplier={.75} color="#22C55E" />
+      </div>
+  }
+
+  console.log(clubs)
+
   return (
     <Container className="">
       <Heading2>Featured Clubs</Heading2>
@@ -15,13 +35,21 @@ const FeaturedClub = () => {
         engagement. Join them to explore new skills and experiences.
       </p>
 
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-8">
-        <ClubCard></ClubCard>
+      {
+        clubs.length === 0 ? <h2 className="font-semi bold text-center text-xl text-error">No feature club available naow.</h2> : <>
+           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-8">
+
+            {clubs.map(club=>  <ClubCard key={club?._id} club={club}></ClubCard>)}
+      
       </div>
 
       <div className="grid place-items-center my-10">
         <button className="bg-secondary-content btn rounded-full flex items-center gap-2">View All <FaArrowRight></FaArrowRight></button>
       </div>
+        </>
+      }
+
+   
     </Container>
   );
 };

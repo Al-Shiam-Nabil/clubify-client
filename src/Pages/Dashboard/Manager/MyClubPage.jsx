@@ -151,10 +151,15 @@ const MyClubPage = () => {
         </Link>
       </div>
 
-      <div className="overflow-x-auto bg-neutral rounded-xl">
-        {isLoading ? (
+  {isLoading ? (
           <LoadingComponent> </LoadingComponent>
-        ) : (
+        ) : clubs?.length ===0 ?  <div>
+          <h2 className="font-bold text-base-300">
+            No club found. Start by creating your club !
+          </h2>
+        </div> :
+      <div className="overflow-x-auto bg-neutral rounded-xl">
+       
           <table className="table table-zebra">
             {/* head */}
             <thead className="bg-secondary text-neutral">
@@ -210,9 +215,9 @@ const MyClubPage = () => {
               ))}
             </tbody>
           </table>
-        )}
+        
 
-        {/* modal */}
+     {/* modal */}
         {/* You can open the modal using document.getElementById('ID').showModal() method */}
 
         <dialog ref={modalRef} className="modal modal-bottom sm:modal-middle">
@@ -407,7 +412,13 @@ const MyClubPage = () => {
             </div>
           </div>
         </dialog>
+   
       </div>
+
+      
+}
+
+
     </>
   );
 };

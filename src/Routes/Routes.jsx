@@ -21,6 +21,10 @@ import ManagerRoute from "./ManagerRoute";
 import MemberRoute from "./MemberRoute";
 import ManageUsersPage from "../Pages/Dashboard/Admin/manageUsersPage";
 import TransactionsPage from "../Pages/Dashboard/Admin/TransactionsPage";
+import MemberMyClubPage from "../Pages/Dashboard/Member/MemberMyClubPage";
+import MyEventsPage from "../Pages/Dashboard/Member/MyEventsPage";
+import PaymentHistoryPage from "../Pages/Dashboard/Member/PaymentHistoryPage";
+import AllClubsPage from "../Pages/AllClubs/AllClubsPage";
 
 export const router = createBrowserRouter([
   {
@@ -30,6 +34,10 @@ export const router = createBrowserRouter([
       {
         index: true,
         Component: HomePage,
+      },
+      {
+path:"all-clubs",
+Component:AllClubsPage
       },
       {
         path: "register",
@@ -127,7 +135,7 @@ export const router = createBrowserRouter([
     element: (
       <PrivateRoute>
         <MemberRoute>
-          {" "}
+       
           <DashboardLayout></DashboardLayout>
         </MemberRoute>
       </PrivateRoute>
@@ -136,7 +144,16 @@ export const router = createBrowserRouter([
       {
         index: true,
         element: <MemberDashboardHome></MemberDashboardHome>,
-      },
+      },{
+        path:"my-clubs",
+        element:<MemberMyClubPage></MemberMyClubPage>
+      },{
+        path:"my-events",
+        element:<MyEventsPage></MyEventsPage>
+      },{
+        path:"payment-history",
+        element:<PaymentHistoryPage></PaymentHistoryPage>
+      }
     ],
   },
 ]);
