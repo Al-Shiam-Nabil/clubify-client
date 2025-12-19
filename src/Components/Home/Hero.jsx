@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 
 const Hero = () => {
     return (
-        <Container className="my-10">
+        <Container className="my-20">
 <section className=' flex items-center text-center lg:text-left gap-10 relative flex-col lg:flex-row'>
     {/* left side  */}
 <div className='w-full sm:h-[400px] lg:h-auto lg:w-1/2'>

@@ -30,7 +30,7 @@ const ClubRequestsPage = () => {
 
     const approveMutation = useMutation({
     mutationFn: (statusInfo) => {
-      return axiosSecure.patch(`/clubs/${statusInfo?._id}/status`, statusInfo);
+      return axiosSecure.patch(`/clubs/status/${statusInfo?._id}`, statusInfo);
     },
     onSuccess: (data) => {
       console.log(data?.data);
@@ -48,7 +48,7 @@ const ClubRequestsPage = () => {
   // reject club
    const rejectMutation = useMutation({
     mutationFn: (statusInfo) => {
-      return axiosSecure.patch(`/clubs/${statusInfo?._id}/status`, statusInfo);
+      return axiosSecure.patch(`/clubs/status/${statusInfo?._id}`, statusInfo);
     },
     onSuccess: (data) => {
       console.log(data?.data);

@@ -65,7 +65,7 @@ const AllEvents = () => {
       <div className="flex flex-col-reverse sm:flex-row sm:justify-between justify-center items-center my-10 gap-y-5 ">
         <div className="flex items-center+ gap-5">
           <h3>
-            All Clubs ({eventsLoading ? <span>...</span> : allEvents.length})
+            All Events ({eventsLoading ? <span>...</span> : allEvents.length})
           </h3>
           <button
             onClick={handleReset}

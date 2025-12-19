@@ -1,12 +1,34 @@
 import React from "react";
 import Container from "../../Components/Shared/Container";
-import { Link } from "react-router";
+import { data, Link, useParams } from "react-router";
 import { MdAccessTime } from "react-icons/md";
 import { TbCurrencyTaka } from "react-icons/tb";
 import { CiLocationOn } from "react-icons/ci";
 import { RiAlertFill } from "react-icons/ri";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import { useQuery } from "@tanstack/react-query";
+import { MoonLoader } from "react-spinners";
+import { format } from "date-fns";
+import userPhoto from '../../assets/user.png'
 
 const ClubDetailsPage = () => {
+    const axiosPublic=useAxiosPublic()
+    const {id}=useParams()
+  
+    const {data:clubDetails={},isLoading:clubDetailsLoading}=useQuery({
+        queryKey:['clubDetails'],
+        queryFn:async()=>{
+            const res=await axiosPublic.get(`/clubs/${id}`)
+            return res.data
+        }
+    })
+
+    if(clubDetailsLoading){
+        return  <div className="grid justify-center h-[350px] mt-10">
+                    <MoonLoader size={30} speedMultiplier={0.75} color="#22C55E" />
+                  </div>
+    }
+    console.log(clubDetails)
   return (
     <Container>
       <div className="flex items-center gap-x-2 flex-wrap my-10">
@@ -30,14 +52,14 @@ const ClubDetailsPage = () => {
           </Link>{" "}
           /
         </div>
-        <span>huihuhueh hrtfhguh huthuh</span>
+        <span className="capitalize">{clubDetails?.clubName}</span>
       </div>
 
       <section className="mb-20">
         <div className="w-full h-[350px]">
           <img
-            src="https://i.ibb.co/sJ6sX7L0/clubify-Hero.jpg"
-            alt=""
+            src={clubDetails?.bannerImage}
+            alt={clubDetails?.clubName}
             className="w-full h-full object-cover rounded-xl"
           />
         </div>
@@ -47,14 +69,14 @@ const ClubDetailsPage = () => {
           <div className="w-full col-span-full lg:col-span-2 space-y-8">
             <div className="space-y-3 capitalize">
               <h3 className="font-bold text-xl font-primary">
-                Fulbari sports club
+                {clubDetails?.clubName}
               </h3>
               <div className="flex items-center gap-x-5 gap-y-2 flex-wrap-reverse">
                 <div className="badge badge-soft badge-secondary">
-                  Art & Music
+               {clubDetails?.category}
                 </div>
                 <p className="flex items-center gap-x-1 text-base-300">
-                  <MdAccessTime></MdAccessTime> 05 December, 2024
+                  <MdAccessTime></MdAccessTime> {format(new Date(clubDetails?.createdAt), "dd  MMMM, yyyy")}
                 </p>
               </div>
             </div>
@@ -65,16 +87,7 @@ const ClubDetailsPage = () => {
                 About The Club
               </h3>
               <p className="text-base-300">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Id,
-                temporibus voluptatem aut, maxime possimus quibusdam laborum
-                doloribus tempore, illo eligendi ratione quisquam magni minus
-                recusandae. Modi doloribus asperiores sit similique tempora
-                animi illo. Ipsum sapiente fuga quaerat, itaque hic mollitia
-                maiores eum praesentium vero saepe voluptatibus similique
-                blanditiis enim esse. Lorem ipsum dolor sit amet consectetur
-                adipisicing elit. Recusandae eius aperiam architecto. Voluptates
-                ipsum similique vitae dignissimos reiciendis, laudantium
-                adipisci?
+               {clubDetails?.description}
               </p>
             </div>
 
@@ -113,8 +126,10 @@ const ClubDetailsPage = () => {
               <div className="space-y-1">
                 <p className="text-base-300">Membership Fee</p>
                 <h3 className="flex items-center gap-x-1 font-bold text-3xl font-primary">
-                  {" "}
-                  <TbCurrencyTaka></TbCurrencyTaka> 500{" "}
+                 {
+                    clubDetails?.membershipFee === 0 ? 'Free' : <><TbCurrencyTaka></TbCurrencyTaka> {clubDetails?.membershipFee}</>
+                 }
+                  
                 </h3>
               </div>
 
@@ -124,14 +139,14 @@ const ClubDetailsPage = () => {
                 <p className="text-base-300">Club Manager</p>
                 <div className="flex items-center gap-x-2">
                   <img
-                    src="https://i.ibb.co/sJ6sX7L0/clubify-Hero.jpg"
+                    src={clubDetails?.managerImage ? clubDetails?.managerImage : userPhoto }
                     alt=""
                     className="w-12 h-12 rounded-full object-cover"
                   />
                   <div>
-                    <p className="capitalize">Ath Tajrian Rafin</p>
+                    <p className="capitalize">{clubDetails?.managerName}</p>
                     <p className="text-sm text-secondary">
-                      nabil15-4777@diu.edu.bd
+                    {clubDetails?.managerEmail}
                     </p>
                   </div>
                 </div>
@@ -140,8 +155,8 @@ const ClubDetailsPage = () => {
               {/* location */}
               <div className="space-y-1">
                 <p className="text-base-300">Location</p>
-                <div className="flex items-center gap-x-1 capitalize">
-                  <CiLocationOn></CiLocationOn> Chottogram{" "}
+                <div className="flex items-center gap-x-1 ">
+                  <CiLocationOn></CiLocationOn> <span className="capitalize"> {clubDetails?.location}</span>
                 </div>
               </div>
             </div>

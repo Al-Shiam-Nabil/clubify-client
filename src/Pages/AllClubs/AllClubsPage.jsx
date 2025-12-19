@@ -64,8 +64,8 @@ const AllClubsPage = () => {
 
   return (
     <Container>
-      <div className="flex flex-col-reverse sm:flex-row sm:justify-between justify-center items-center my-10 gap-y-5 ">
-        <div className="flex items-center+ gap-5">
+      <div className="flex flex-col-reverse sm:flex-row sm:justify-between justify-center items-center my-10 gap-y-8 ">
+        <div className="flex items-center gap-5">
           <h3>All Clubs ({clubLoading ? <span>...</span> : clubs.length})</h3>
           <button
             onClick={handleRefresh}
