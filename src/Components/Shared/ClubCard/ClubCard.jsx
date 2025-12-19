@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 const ClubCard = ({club}) => {
 
@@ -14,9 +15,9 @@ const ClubCard = ({club}) => {
           }}
         >
           <div className=" absolute bottom-0 p-3 rounded-b-xl backdrop-blur-sm bg-black/50 w-full">
-            <h3 className="text-secondary-content font-medium truncate hover:underline inline-block cursor-pointer capitalize">
+            <Link to={`/clubs/${club?._id}`} className="text-secondary-content font-medium truncate hover:underline inline-block cursor-pointer capitalize">
               {club?.clubName}
-            </h3>
+            </Link>
             <h6 className=" text-secondary-content capitalize text-sm">{club?.location}</h6>
           </div>
         </div>
