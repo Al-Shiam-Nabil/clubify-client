@@ -66,17 +66,17 @@ const LoginPage = () => {
                       message: "Please enter valid email.",
                     },
                   })}
-                  className="input w-full bg-secondary-content rounded-full px-5 focus:outline-2  focus:outline-secondary mb-2"
+                  className="input w-full bg-secondary-content rounded-full px-5 focus:outline-2  focus:outline-secondary "
                   placeholder="Email"
                 />
                 {errors.email && (
-                  <p className="text-red-500 text-sm mt-1">
+                  <p className="text-red-500 text-sm ">
                     {errors.email.message}
                   </p>
                 )}
 
                 {/* password */}
-                <label className="label text-base text-accent">Password</label>
+                <label className="label text-base text-accent mt-2">Password</label>
 
                 <div className="relative">
                   <input
@@ -88,7 +88,7 @@ const LoginPage = () => {
                     placeholder="Password"
                   />
                   {errors.password && !errors.email && (
-                    <p className="text-red-500 text-sm mt-1">
+                    <p className="text-red-500 text-sm ">
                       {errors.password.message}
                     </p>
                   )}

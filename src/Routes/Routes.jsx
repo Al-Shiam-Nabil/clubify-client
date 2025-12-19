@@ -25,6 +25,7 @@ import MemberMyClubPage from "../Pages/Dashboard/Member/MemberMyClubPage";
 import MyEventsPage from "../Pages/Dashboard/Member/MyEventsPage";
 import PaymentHistoryPage from "../Pages/Dashboard/Member/PaymentHistoryPage";
 import AllClubsPage from "../Pages/AllClubs/AllClubsPage";
+import AllEvents from "../Pages/AllEvents/AllEvents";
 
 export const router = createBrowserRouter([
   {
@@ -36,8 +37,11 @@ export const router = createBrowserRouter([
         Component: HomePage,
       },
       {
-path:"all-clubs",
-Component:AllClubsPage
+        path: "all-clubs",
+        Component: AllClubsPage,
+      },{
+        path:'all-events',
+        Component:AllEvents
       },
       {
         path: "register",
@@ -85,11 +89,12 @@ Component:AllClubsPage
       },
       {
         path: "manage-users",
-        element:<ManageUsersPage></ManageUsersPage>
-      },{
-        path:"transactions",
-        element:<TransactionsPage/>
-      }
+        element: <ManageUsersPage></ManageUsersPage>,
+      },
+      {
+        path: "transactions",
+        element: <TransactionsPage />,
+      },
     ],
   },
   {
@@ -135,7 +140,6 @@ Component:AllClubsPage
     element: (
       <PrivateRoute>
         <MemberRoute>
-       
           <DashboardLayout></DashboardLayout>
         </MemberRoute>
       </PrivateRoute>
@@ -144,16 +148,19 @@ Component:AllClubsPage
       {
         index: true,
         element: <MemberDashboardHome></MemberDashboardHome>,
-      },{
-        path:"my-clubs",
-        element:<MemberMyClubPage></MemberMyClubPage>
-      },{
-        path:"my-events",
-        element:<MyEventsPage></MyEventsPage>
-      },{
-        path:"payment-history",
-        element:<PaymentHistoryPage></PaymentHistoryPage>
-      }
+      },
+      {
+        path: "my-clubs",
+        element: <MemberMyClubPage></MemberMyClubPage>,
+      },
+      {
+        path: "my-events",
+        element: <MyEventsPage></MyEventsPage>,
+      },
+      {
+        path: "payment-history",
+        element: <PaymentHistoryPage></PaymentHistoryPage>,
+      },
     ],
   },
 ]);

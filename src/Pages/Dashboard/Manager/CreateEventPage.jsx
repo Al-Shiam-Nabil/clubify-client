@@ -96,7 +96,7 @@ const CreateEventPage = () => {
                   Select Club
                 </option>
                 {myClubs.map((club) => (
-                  <option value={club?._id} key={club?._id}>
+                  <option className="capitalize" value={club?._id} key={club?._id}>
                     {club?.clubName}
                   </option>
                 ))}

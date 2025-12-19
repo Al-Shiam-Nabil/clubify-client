@@ -188,10 +188,10 @@ const EventManagementPage = () => {
 
                   <td className="capitalize">{event?.title}</td>
                   <td className="capitalize">{event?.clubName}</td>
-                  <td className="capitalize">{event?.category}</td>
-                  <td className="capitalize">{event?.location}</td>
-                  <td className="">{formattedDate(event?.createdAt)}</td>
-                  <td>{format(new Date(event?.eventDate), "dd/MMM/yyyy")}</td>
+                  <td className="capitalize truncate">{event?.category}</td>
+                  <td className="capitalize truncate">{event?.location}</td>
+                  <td className="truncate">{formattedDate(event?.createdAt)}</td>
+                  <td className="truncate">{format(new Date(event?.eventDate), "dd/MMM/yyyy")}</td>
 
                   <td>{event?.eventFee === 0 ? "Free" : event?.eventFee}</td>
 

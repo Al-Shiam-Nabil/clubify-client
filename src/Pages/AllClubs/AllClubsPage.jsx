@@ -5,18 +5,19 @@ import { useQuery } from "@tanstack/react-query";
 import ClubCard from "../../Components/Shared/ClubCard/ClubCard";
 import { MoonLoader } from "react-spinners";
 import axios from "axios";
+import { LuRefreshCw } from "react-icons/lu";
 
 const AllClubsPage = () => {
   const [sort, setSort] = useState("createdAt");
   const [order, setOrder] = useState("");
   const [filterCategory, setFilterCategory] = useState("");
-
+  const [searchText, setSearchText] = useState("");
   //   all clubs
   const { data: clubs = [], isLoading: clubLoading } = useQuery({
-    queryKey: ["allClubs", sort, order, filterCategory],
+    queryKey: ["allClubs", sort, order, filterCategory, searchText],
     queryFn: async () => {
       const res = await axios.get(
-        `http://localhost:4000/all-clubs?sort=${sort}&order=${order}&filter=${filterCategory}`
+        `http://localhost:4000/all-clubs?search=${searchText}&sort=${sort}&order=${order}&filter=${filterCategory}`
       );
       return res.data;
     },
@@ -38,24 +39,44 @@ const AllClubsPage = () => {
     setOrder(sortedText[1]);
   };
 
-
-      const allCategories = allCategoriesData?.map((cat) => cat?.category);
-      const categories = [...new Set(allCategories)];
-
-
-
-  console.log(categories);
+  const allCategories = allCategoriesData?.map((cat) => cat?.category);
+  const categories = [...new Set(allCategories)];
 
   const handleFilter = (e) => {
     setFilterCategory(e.target.value);
   };
 
+  const handleSearch = (e) => {
+    e.preventDefault();
+    setSearchText(e.target.search.value);
+    e.target.reset();
+  };
+
+  const handleRefresh = () => {
+    setFilterCategory("");
+    setSearchText("");
+    setSort("createdAt");
+    setOrder("");
+  };
+
   return (
     <Container>
       <div className="flex flex-col-reverse sm:flex-row sm:justify-between justify-center items-center my-10 gap-y-5 ">
-        <h3>All Clubs (10)</h3>
+        <div className="flex items-center+ gap-5">
+          <h3>All Clubs ({clubLoading ? <span>...</span> : clubs.length})</h3>
+          <button
+            onClick={handleRefresh}
+            className="cursor-pointer text-secondary hover:text-primary text-xl"
+          >
+            <LuRefreshCw></LuRefreshCw>{" "}
+          </button>
+        </div>
         {/* search */}
-        <form className="flex justify-center items-center">
+
+        <form
+          onSubmit={handleSearch}
+          className="flex justify-center items-center"
+        >
           <div className="relative h-[45px]">
             <input
               type="text"

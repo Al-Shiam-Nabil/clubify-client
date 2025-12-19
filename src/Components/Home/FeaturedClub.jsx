@@ -6,6 +6,7 @@ import ClubCard from "../Shared/ClubCard/ClubCard";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../Hooks/useAxiossecure";
 import { MoonLoader } from "react-spinners";
+import { Link } from "react-router";
 
 
 const FeaturedClub = () => {
@@ -44,7 +45,7 @@ const axiosSecure=useAxiosSecure()
       </div>
 
       <div className="grid place-items-center my-10">
-        <button className="bg-secondary-content btn rounded-full flex items-center gap-2">View All <FaArrowRight></FaArrowRight></button>
+        <Link to="/all-clubs" className="bg-secondary-content btn rounded-full flex items-center gap-2">View All <FaArrowRight></FaArrowRight></Link>
       </div>
         </>
       }

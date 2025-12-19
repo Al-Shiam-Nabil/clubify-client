@@ -27,7 +27,7 @@ const Navbar = () => {
     <>
       <MyLink to="/">Home</MyLink>
       <MyLink to="/all-clubs">All Clubs</MyLink>
-      <MyLink to="/events">Club Events</MyLink>
+      <MyLink to="/all-events">Club Events</MyLink>
 
       {
         user && <MyLink to={`/dashboard/${role}`}>Dashboard</MyLink> 
