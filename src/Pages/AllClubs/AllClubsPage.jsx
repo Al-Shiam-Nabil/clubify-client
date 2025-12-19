@@ -49,7 +49,7 @@ const AllClubsPage = () => {
   const handleSearch = (e) => {
     e.preventDefault();
     setSearchText(e.target.search.value);
-    e.target.reset();
+    // e.target.reset();
   };
 
   const handleRefresh = () => {
@@ -57,6 +57,8 @@ const AllClubsPage = () => {
     setSearchText("");
     setSort("createdAt");
     setOrder("");
+
+    document.querySelector("input[name='search']").value=""
   };
 
   return (
@@ -81,6 +83,7 @@ const AllClubsPage = () => {
             <input
               type="text"
               name="search"
+            
               placeholder="Search By Name..."
               spellCheck={false}
               className="bg-gray-200 w-full sm:w-[400px] px-5 pr-24 py-2 rounded-4xl h-full  focus:outline-2 focus:outline-secondary"
@@ -100,8 +103,9 @@ const AllClubsPage = () => {
         <div className="flex">
           <label className="label mr-3">Sort By</label>
           <select
+          value={`${sort}-${order}`}
             onChange={(value) => handleSort(value)}
-            className="select w-[250px] "
+            className="select w-[180px] "
           >
             {/* <option disabled={true}>Pick a color</option> */}
             <option value={"createdAt-desc"}>Newest First</option>
@@ -114,8 +118,9 @@ const AllClubsPage = () => {
         <div className="flex">
           <label className="label mr-3">Filter By</label>
           <select
+          value={filterCategory}
             onChange={(value) => handleFilter(value)}
-            className="select w-[250px]"
+            className="select w-[180px]"
           >
             <option disabled={true}>Filter by Category</option>
             <option value="">All Categories</option>
