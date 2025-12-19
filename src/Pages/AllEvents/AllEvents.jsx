@@ -8,7 +8,7 @@ import EventCard from "../../Components/Shared/EventCard/EventCard";
 
 const AllEvents = () => {
   const [sort, setSort] = useState("eventDate");
-  const [order, setOrder] = useState("");
+  const [order, setOrder] = useState("asc");
   const [filter, setFilter] = useState("");
   const [search, setSearch] = useState("");
   const { data: allEvents, isLoading: eventsLoading } = useQuery({
@@ -49,6 +49,15 @@ const AllEvents = () => {
     setSearch(e.target.search.value.trim());
   };
 
+  const handleReset = () => {
+    setSearch("");
+    setSort("eventDate");
+    setOrder("asc");
+    setFilter("");
+
+    document.querySelector("input[name='search']").value = "";
+  };
+
   return (
     <Container>
       <div className="flex flex-col-reverse sm:flex-row sm:justify-between justify-center items-center my-10 gap-y-5 ">
@@ -56,7 +65,10 @@ const AllEvents = () => {
           <h3>
             All Clubs ({eventsLoading ? <span>...</span> : allEvents.length})
           </h3>
-          <button className="cursor-pointer text-secondary hover:text-primary text-xl">
+          <button
+            onClick={handleReset}
+            className="cursor-pointer text-secondary hover:text-primary text-xl"
+          >
             <LuRefreshCw></LuRefreshCw>{" "}
           </button>
         </div>
@@ -89,6 +101,7 @@ const AllEvents = () => {
         <div className="flex">
           <label className="label mr-3">Sort By</label>
           <select
+            value={`${sort}-${order}`}
             onChange={(value) => handleSort(value)}
             className="select w-[180px] "
           >
@@ -102,6 +115,7 @@ const AllEvents = () => {
         <div className="flex">
           <label className="label mr-3">Filter By</label>
           <select
+            value={filter}
             onChange={(value) => handleFilter(value)}
             className="select w-[180px]"
           >
