@@ -11,13 +11,14 @@ import { sweetAlert } from "../../Utils/Alert/SweetAlert";
 import { useMutation } from "@tanstack/react-query";
 
 import { uploadImage } from "../../Utils/uploadImage";
-import axios from "axios";
+
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 const RegisterPage = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const { registerUser, setLoading, updateUserInfo } = useAuthHook();
-
+const axiosPublic=useAxiosPublic()
   const navigate = useNavigate();
 
   const location = useLocation();
@@ -35,7 +36,7 @@ const RegisterPage = () => {
 
   const mutation = useMutation({
     mutationFn: (userInfo) => {
-      return axios.post("http://localhost:4000/users", userInfo);
+      return axiosPublic.post("/users", userInfo);
     },
     onSuccess: (data) => {
       if (data?.data?.insertedId) {

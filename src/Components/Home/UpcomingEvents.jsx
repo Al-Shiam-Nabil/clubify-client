@@ -4,15 +4,18 @@ import Container from "../Shared/Container";
 
 import { FaArrowRight } from "react-icons/fa";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
+
 import { MoonLoader } from "react-spinners";
 import EventCard from "../Shared/EventCard/EventCard";
+import { Link } from "react-router";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 const UpcomingEvents = () => {
+  const axiosPublic=useAxiosPublic()
   const { data: upcomingEvents = [], isLoading: eventsLoading } = useQuery({
     queryKey: ["upcomingEvents", "eventDate"],
     queryFn: async () => {
-      const res = await axios.get(`http://localhost:4000/upcoming-events`);
+      const res = await axiosPublic.get(`/upcoming-events`);
       return res.data;
     },
   });
@@ -39,16 +42,15 @@ const UpcomingEvents = () => {
       ) : (
         <>
           <div className="grid  grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {upcomingEvents.map((event) => <EventCard key={event?._id} event={event}></EventCard>
-             
-            )}
-          
+            {upcomingEvents.map((event) => (
+              <EventCard key={event?._id} event={event}></EventCard>
+            ))}
           </div>
 
           <div className="grid place-items-center my-10">
-            <button className="bg-secondary-content btn rounded-full flex items-center gap-2">
+            <Link to="/all-events" className="bg-secondary-content btn rounded-full flex items-center gap-2">
               View All <FaArrowRight></FaArrowRight>
-            </button>
+            </Link>
           </div>
         </>
       )}

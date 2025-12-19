@@ -1,10 +1,11 @@
-import axios from "axios";
+
 import useAuthHook from "../../Hooks/useAuthHook";
 import { sweetAlert } from "../../Utils/Alert/SweetAlert";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 const GoogleLogin = () => {
   const { googleLogin, setLoading } = useAuthHook();
-
+const axiosPublic=useAxiosPublic()
   const handleGoogleLogin = () => {
     googleLogin()
       .then((result) => {
@@ -13,7 +14,7 @@ const GoogleLogin = () => {
           email: result?.user?.email,
           photoURL: result?.user?.photoURL,
         };
-        axios.post("http://localhost:4000/users", userInfo).then((res) => {
+        axiosPublic.post("/users", userInfo).then((res) => {
           console.log(res.data)
           if (res?.data?.insertedId) {
             sweetAlert("success", "Logged in successfully.");

@@ -2,20 +2,22 @@ import React, { useState } from "react";
 import Container from "../../Components/Shared/Container";
 import { LuRefreshCw } from "react-icons/lu";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
+
 import { MoonLoader } from "react-spinners";
 import EventCard from "../../Components/Shared/EventCard/EventCard";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 const AllEvents = () => {
   const [sort, setSort] = useState("eventDate");
   const [order, setOrder] = useState("asc");
   const [filter, setFilter] = useState("");
   const [search, setSearch] = useState("");
+  const axiosPublic=useAxiosPublic()
   const { data: allEvents, isLoading: eventsLoading } = useQuery({
     queryKey: ["allEvents", sort, order, filter, search],
     queryFn: async () => {
-      const res = await axios.get(
-        `http://localhost:4000/all-events?sort=${sort}&order=${order}&filter=${filter}&search=${search}`
+      const res = await axiosPublic.get(
+        `/all-events?sort=${sort}&order=${order}&filter=${filter}&search=${search}`
       );
       return res.data;
     },
@@ -26,7 +28,7 @@ const AllEvents = () => {
     useQuery({
       queryKey: ["eventCategories"],
       queryFn: async () => {
-        const res = await axios.get(`http://localhost:4000/event-categories`);
+        const res = await axiosPublic.get(`/event-categories`);
         return res.data;
       },
     });

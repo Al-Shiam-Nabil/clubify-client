@@ -4,20 +4,21 @@ import Container from "../../Components/Shared/Container";
 import { useQuery } from "@tanstack/react-query";
 import ClubCard from "../../Components/Shared/ClubCard/ClubCard";
 import { MoonLoader } from "react-spinners";
-import axios from "axios";
 import { LuRefreshCw } from "react-icons/lu";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 const AllClubsPage = () => {
   const [sort, setSort] = useState("createdAt");
   const [order, setOrder] = useState("");
   const [filterCategory, setFilterCategory] = useState("");
   const [searchText, setSearchText] = useState("");
+  const axiosPublic=useAxiosPublic()
   //   all clubs
   const { data: clubs = [], isLoading: clubLoading } = useQuery({
     queryKey: ["allClubs", sort, order, filterCategory, searchText],
     queryFn: async () => {
-      const res = await axios.get(
-        `http://localhost:4000/all-clubs?search=${searchText}&sort=${sort}&order=${order}&filter=${filterCategory}`
+      const res = await axiosPublic.get(
+        `/all-clubs?search=${searchText}&sort=${sort}&order=${order}&filter=${filterCategory}`
       );
       return res.data;
     },
@@ -28,7 +29,7 @@ const AllClubsPage = () => {
     useQuery({
       queryKey: ["allCategories"],
       queryFn: async () => {
-        const res = await axios.get(`http://localhost:4000/all-categories`);
+        const res = await axiosPublic.get(`/all-categories`);
         return res.data;
       },
     });
