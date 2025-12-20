@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Container from "../../Components/Shared/Container";
-import { data, Link, useParams } from "react-router";
+import { Link, useLocation, useParams } from "react-router";
 import { MdAccessTime } from "react-icons/md";
 import { TbCurrencyTaka } from "react-icons/tb";
 import { CiLocationOn } from "react-icons/ci";
@@ -9,26 +9,34 @@ import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import { useQuery } from "@tanstack/react-query";
 import { MoonLoader } from "react-spinners";
 import { format } from "date-fns";
-import userPhoto from '../../assets/user.png'
+import userPhoto from "../../assets/user.png";
 
 const ClubDetailsPage = () => {
-    const axiosPublic=useAxiosPublic()
-    const {id}=useParams()
-  
-    const {data:clubDetails={},isLoading:clubDetailsLoading}=useQuery({
-        queryKey:['clubDetails'],
-        queryFn:async()=>{
-            const res=await axiosPublic.get(`/clubs/${id}`)
-            return res.data
-        }
-    })
+  const axiosPublic = useAxiosPublic();
+  const { id } = useParams();
 
-    if(clubDetailsLoading){
-        return  <div className="grid justify-center h-[350px] mt-10">
-                    <MoonLoader size={30} speedMultiplier={0.75} color="#22C55E" />
-                  </div>
-    }
-    console.log(clubDetails)
+  const location = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [location?.pathname]);
+
+  const { data: clubDetails = {}, isLoading: clubDetailsLoading } = useQuery({
+    queryKey: ["clubDetails"],
+    queryFn: async () => {
+      const res = await axiosPublic.get(`/clubs/${id}`);
+      return res.data;
+    },
+  });
+
+  if (clubDetailsLoading) {
+    return (
+      <div className="grid justify-center h-[350px] mt-10">
+        <MoonLoader size={30} speedMultiplier={0.75} color="#22C55E" />
+      </div>
+    );
+  }
+  console.log(clubDetails);
   return (
     <Container>
       <div className="flex items-center gap-x-2 flex-wrap my-10">
@@ -73,10 +81,11 @@ const ClubDetailsPage = () => {
               </h3>
               <div className="flex items-center gap-x-5 gap-y-2 flex-wrap-reverse">
                 <div className="badge badge-soft badge-secondary">
-               {clubDetails?.category}
+                  {clubDetails?.category}
                 </div>
                 <p className="flex items-center gap-x-1 text-base-300">
-                  <MdAccessTime></MdAccessTime> {format(new Date(clubDetails?.createdAt), "dd  MMMM, yyyy")}
+                  <MdAccessTime></MdAccessTime>{" "}
+                  {format(new Date(clubDetails?.createdAt), "dd  MMMM, yyyy")}
                 </p>
               </div>
             </div>
@@ -86,9 +95,7 @@ const ClubDetailsPage = () => {
               <h3 className="text-lg font-semibold font-primary">
                 About The Club
               </h3>
-              <p className="text-base-300">
-               {clubDetails?.description}
-              </p>
+              <p className="text-base-300">{clubDetails?.description}</p>
             </div>
 
             <div className=" space-y-2 ">
@@ -104,9 +111,12 @@ const ClubDetailsPage = () => {
               </p>
             </div>
 
-            <button className="btn btn-md btn-primary shadow-none hover:btn-secondary">
+            <Link
+              to={`/membership-registration/${clubDetails?._id}`}
+              className="btn btn-md btn-primary shadow-none hover:btn-secondary"
+            >
               Join Club
-            </button>
+            </Link>
           </div>
 
           {/* right */}
@@ -126,10 +136,14 @@ const ClubDetailsPage = () => {
               <div className="space-y-1">
                 <p className="text-base-300">Membership Fee</p>
                 <h3 className="flex items-center gap-x-1 font-bold text-3xl font-primary">
-                 {
-                    clubDetails?.membershipFee === 0 ? 'Free' : <><TbCurrencyTaka></TbCurrencyTaka> {clubDetails?.membershipFee}</>
-                 }
-                  
+                  {clubDetails?.membershipFee === 0 ? (
+                    "Free"
+                  ) : (
+                    <>
+                      <TbCurrencyTaka></TbCurrencyTaka>{" "}
+                      {clubDetails?.membershipFee}
+                    </>
+                  )}
                 </h3>
               </div>
 
@@ -139,14 +153,18 @@ const ClubDetailsPage = () => {
                 <p className="text-base-300">Club Manager</p>
                 <div className="flex items-center gap-x-2">
                   <img
-                    src={clubDetails?.managerImage ? clubDetails?.managerImage : userPhoto }
+                    src={
+                      clubDetails?.managerImage
+                        ? clubDetails?.managerImage
+                        : userPhoto
+                    }
                     alt=""
                     className="w-12 h-12 rounded-full object-cover"
                   />
                   <div>
                     <p className="capitalize">{clubDetails?.managerName}</p>
                     <p className="text-sm text-secondary">
-                    {clubDetails?.managerEmail}
+                      {clubDetails?.managerEmail}
                     </p>
                   </div>
                 </div>
@@ -156,7 +174,8 @@ const ClubDetailsPage = () => {
               <div className="space-y-1">
                 <p className="text-base-300">Location</p>
                 <div className="flex items-center gap-x-1 ">
-                  <CiLocationOn></CiLocationOn> <span className="capitalize"> {clubDetails?.location}</span>
+                  <CiLocationOn></CiLocationOn>{" "}
+                  <span className="capitalize"> {clubDetails?.location}</span>
                 </div>
               </div>
             </div>

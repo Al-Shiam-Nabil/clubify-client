@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link, Navigate, useLocation } from "react-router";
+import React, { useEffect, useState } from "react";
+import { Link, Navigate, useLocation, useNavigate } from "react-router";
 import Container from "../../Components/Shared/Container";
 import { FaRegEyeSlash } from "react-icons/fa";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
@@ -10,8 +10,9 @@ import { sweetAlert } from "../../Utils/Alert/SweetAlert";
 
 const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const {loginUser,setLoading,user}=useAuthHook()
+  const { loginUser, setLoading, user, loading } = useAuthHook();
   const location = useLocation();
+  const navigate = useNavigate();
 
   const {
     register,
@@ -24,25 +25,29 @@ const LoginPage = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [location?.pathname]);
 
-  if(user){
-    return <Navigate to="/"></Navigate>
-  }
+  console.log(location);
 
-  
+  // if(user && !loading){
+  //   return <Navigate to='/'></Navigate>
+
+  // }
 
   const handleLogin = (data) => {
-    const email=data?.email
-    const password=data?.password
+    const email = data?.email;
+    const password = data?.password;
 
-    loginUser(email,password).then(()=>{
-      sweetAlert('success','Logged in successfully.')
-      reset()
-      setLoading(false)
-    }).catch(error=>{
-      console.error(error.code)
-      sweetAlert('error','Invalid email or password.')
-      setLoading(false)
-    })
+    loginUser(email, password)
+      .then(() => {
+        navigate(location?.state || "/");
+        sweetAlert("success", "Logged in successfully.");
+        reset();
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error(error.code);
+        sweetAlert("error", "Invalid email or password.");
+        setLoading(false);
+      });
   };
 
   return (
@@ -76,7 +81,9 @@ const LoginPage = () => {
                 )}
 
                 {/* password */}
-                <label className="label text-base text-accent mt-2">Password</label>
+                <label className="label text-base text-accent mt-2">
+                  Password
+                </label>
 
                 <div className="relative">
                   <input

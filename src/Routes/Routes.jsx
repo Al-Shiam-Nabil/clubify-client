@@ -27,6 +27,7 @@ import PaymentHistoryPage from "../Pages/Dashboard/Member/PaymentHistoryPage";
 import AllClubsPage from "../Pages/AllClubs/AllClubsPage";
 import AllEvents from "../Pages/AllEvents/AllEvents";
 import ClubDetailsPage from "../Pages/AllClubs/ClubDetailsPage";
+import MembershipRegistrationPage from "../Pages/AllClubs/MembershipRegistrationPage";
 
 export const router = createBrowserRouter([
   {
@@ -40,12 +41,22 @@ export const router = createBrowserRouter([
       {
         path: "all-clubs",
         Component: AllClubsPage,
-      },{
-        path:'all-events',
-        Component:AllEvents
-      },{
-        path:"/clubs/:id",
-        Component:ClubDetailsPage
+      },
+      {
+        path: "membership-registration/:id",
+        element: (
+          <PrivateRoute>
+            <MembershipRegistrationPage></MembershipRegistrationPage>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "all-events",
+        Component: AllEvents,
+      },
+      {
+        path: "/clubs/:id",
+        Component: ClubDetailsPage,
       },
       {
         path: "register",

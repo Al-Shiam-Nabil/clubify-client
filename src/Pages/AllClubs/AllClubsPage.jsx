@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Container from "../../Components/Shared/Container";
 
 import { useQuery } from "@tanstack/react-query";
@@ -6,13 +6,21 @@ import ClubCard from "../../Components/Shared/ClubCard/ClubCard";
 import { MoonLoader } from "react-spinners";
 import { LuRefreshCw } from "react-icons/lu";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import { useLocation } from "react-router";
 
 const AllClubsPage = () => {
   const [sort, setSort] = useState("createdAt");
   const [order, setOrder] = useState("");
   const [filterCategory, setFilterCategory] = useState("");
   const [searchText, setSearchText] = useState("");
-  const axiosPublic=useAxiosPublic()
+  const axiosPublic = useAxiosPublic();
+
+  const location=useLocation()
+
+  useEffect(()=>{
+    window.scrollTo({top:0,behavior:"smooth"})
+  },[location?.pathname])
+
   //   all clubs
   const { data: clubs = [], isLoading: clubLoading } = useQuery({
     queryKey: ["allClubs", sort, order, filterCategory, searchText],
@@ -59,7 +67,7 @@ const AllClubsPage = () => {
     setSort("createdAt");
     setOrder("");
 
-    document.querySelector("input[name='search']").value=""
+    document.querySelector("input[name='search']").value = "";
   };
 
   return (
@@ -84,7 +92,6 @@ const AllClubsPage = () => {
             <input
               type="text"
               name="search"
-            
               placeholder="Search By Name..."
               spellCheck={false}
               className="bg-gray-200 w-full sm:w-[400px] px-5 pr-24 py-2 rounded-4xl h-full  focus:outline-2 focus:outline-secondary"
@@ -104,7 +111,7 @@ const AllClubsPage = () => {
         <div className="flex">
           <label className="label mr-3">Sort By</label>
           <select
-          value={`${sort}-${order}`}
+            value={`${sort}-${order}`}
             onChange={(value) => handleSort(value)}
             className="select w-[180px] "
           >
@@ -119,7 +126,7 @@ const AllClubsPage = () => {
         <div className="flex">
           <label className="label mr-3">Filter By</label>
           <select
-          value={filterCategory}
+            value={filterCategory}
             onChange={(value) => handleFilter(value)}
             className="select w-[180px]"
           >

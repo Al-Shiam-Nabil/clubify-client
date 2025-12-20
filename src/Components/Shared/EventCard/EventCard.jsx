@@ -27,7 +27,7 @@ const EventCard = ({event}) => {
                   {event?.description.split('').slice(0,80)}...
                   </p>
 
-                  <button className="btn btn-primary shadow-none border-none mt-1 hover:btn-secondary">
+                  <button className="btn btn-md btn-primary shadow-none border-none mt-1 hover:btn-secondary">
                     View Details
                   </button>
                 </div>

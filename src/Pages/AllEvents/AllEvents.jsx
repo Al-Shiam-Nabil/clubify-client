@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Container from "../../Components/Shared/Container";
 import { LuRefreshCw } from "react-icons/lu";
 import { useQuery } from "@tanstack/react-query";
@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import { MoonLoader } from "react-spinners";
 import EventCard from "../../Components/Shared/EventCard/EventCard";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import { useLocation } from "react-router";
 
 const AllEvents = () => {
   const [sort, setSort] = useState("eventDate");
@@ -13,6 +14,15 @@ const AllEvents = () => {
   const [filter, setFilter] = useState("");
   const [search, setSearch] = useState("");
   const axiosPublic=useAxiosPublic()
+
+
+    const location=useLocation()
+  
+    useEffect(()=>{
+      window.scrollTo({top:0,behavior:"smooth"})
+    },[location?.pathname])
+  
+
   const { data: allEvents, isLoading: eventsLoading } = useQuery({
     queryKey: ["allEvents", sort, order, filter, search],
     queryFn: async () => {
@@ -62,8 +72,8 @@ const AllEvents = () => {
 
   return (
     <Container>
-      <div className="flex flex-col-reverse sm:flex-row sm:justify-between justify-center items-center my-10 gap-y-5 ">
-        <div className="flex items-center+ gap-5">
+      <div className="flex flex-col-reverse sm:flex-row sm:justify-between justify-center items-center my-10 gap-y-10 ">
+        <div className="flex items-center gap-5">
           <h3>
             All Events ({eventsLoading ? <span>...</span> : allEvents.length})
           </h3>
